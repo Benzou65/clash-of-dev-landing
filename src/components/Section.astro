@@ -28,9 +28,14 @@ const {
     <p class="section__subtitle">{subtitle}</p>
     <p class="section__points">/{points} pts</p>
   </div>
-  <h3 class="section__title">{title}</h3>
+  <h2 class="section__title">{title}</h2>
   <div class="section__image">
-    <Image src={image} alt={alt} />
+    <Image
+      src={image}
+      alt={alt}
+      widths={[240, 480, 720, 987]}
+      sizes={`(max-width: 480px) 240px, (max-width: 720px) 480px, (max-width: 987px) 720px, 987px`}
+    />
   </div>
   <div class="section__description">
     {content.map((content) => <p set:html={content} />)}
