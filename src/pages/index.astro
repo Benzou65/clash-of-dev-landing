@@ -1,16 +1,59 @@
 ---
+import "../styles/modern-normalize.css";
+import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
 
+import Section from "../components/Section.astro";
+import type { Props } from "../components/Section.astro";
+
+import section1Img from "../images/section1.png";
+import section1Sticker from "../images/sticker1.svg";
+
+const sections: Props[] = [
+  {
+    title: "L'artiste de renom",
+    subtitle: "Design",
+    points: 6,
+    content: [
+      "<strong>Le design</strong> c’est son terrain de jeu.</br>Il maîtrise et retranscrit correctement chaque pixel de la maquette.",
+      "Virtuose des couleurs il ne se trompe jamais de code HEX, de spacing ou de border-radius ; <strong>Figma n’a aucun secret pour ce Dev de talent</strong>.",
+    ],
+    image: section1Img,
+    alt: "",
+    backgroundColor: "#EBEDFF",
+    sticker: section1Sticker,
+  },
+];
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <GoogleFontsOptimizer
+      url="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    />
+    <title>Astro</title>
+  </head>
+  <body>
+    <h1>Astro</h1>
+    {sections.map((section) => <Section {...section} />)}
+  </body>
 </html>
+<style is:global>
+  body {
+    font-family: "Inter", sans-serif;
+    color: var(--COD-Black);
+  }
+  * {
+    margin: 0;
+  }
+  :root {
+    --COD-Black: #262625;
+
+    --COD-COLOR-Purple-Light: #ebedff;
+    --COD-COLOR-Purple-Mid: #9fa8fe;
+    --COD-COLOR-Purple-Dark: #8a92e3;
+  }
+</style>
