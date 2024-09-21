@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 export interface Props {
   title: string;
   subtitle: string;
-  points: number;
+  points: number | string;
   content: string[];
   image: ImageMetadata;
   alt: string;
@@ -52,6 +52,7 @@ const {
     margin-inline: 32px;
     background-color: var(--backgroundColor);
     border-radius: 60px;
+    height: 100vh;
   }
 
   .section__category {
@@ -84,7 +85,7 @@ const {
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 
@@ -118,15 +119,12 @@ const {
     text-transform: uppercase;
   }
 
-  .section__description {
-    /* margin-bottom: 32px; */
-  }
-
   .section__sticker {
     grid-column: 13 / span 5;
     grid-row: 2;
-
     align-self: end;
+    position: relative;
+    bottom: -3px;
 
     img {
       width: 100%;
