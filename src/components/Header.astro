@@ -1,0 +1,46 @@
+---
+import Logo from "./Logo.astro";
+import Switch from "./Switch.astro";
+import Progress from "./Progress.astro";
+const progress = 0;
+---
+
+<header class="header">
+  <Progress />
+  <div class="header__group">
+    <Logo />
+    <div class="header__progress">{progress}%</div>
+    <Switch />
+  </div>
+</header>
+
+<style>
+  .header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+
+  .header__group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+  }
+
+  .header__progress {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .header__group {
+      padding: 40px 12px;
+    }
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import Vector from "../images/logos/Vector.svg";
+---
+
+<div class="hero">
+  <div class="hero__content">
+    <div class="hero__image-wrapper">
+      <Image src={Vector} alt="" class="hero__vector" />
+    </div>
+    <p class="hero__title">Que le plus fort, <em>l'emporte!</em></p>
+  </div>
+</div>
+
+<style>
+  .hero {
+    width: 100%;
+    min-height: 356px;
+    padding: 0 32px;
+    margin-top: 201px;
+  }
+
+  .hero__content {
+    height: 256px;
+  }
+
+  .hero__title {
+    font-family: Inter;
+    font-size: 115px;
+    font-weight: 600;
+    line-height: 123px;
+    text-align: left;
+  }
+
+  .hero__image-wrapper {
+    width: 176px;
+    float: left;
+    margin-top: 135px;
+    shape-outside: url("/images/logos/Vector.svg");
+    shape-outside: content-box;
+  }
+
+  .hero__vector {
+    margin-left: 22px;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 0 12px;
+      margin-top: 174px;
+    }
+
+    .hero__title {
+      font-size: 74px;
+      font-weight: 600;
+      line-height: 82px;
+      text-align: left;
+    }
+
+    .hero__image-wrapper {
+      width: 130px;
+      float: right;
+      margin-top: -3px;
+    }
+
+    .hero__vector {
+      transform: rotate(21.39deg);
+    }
+  }
+</style>

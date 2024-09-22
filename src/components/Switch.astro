@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets";
+import Circle from "../images/logos/Circle.svg";
+---
+
+<div class="switch">
+  <Image src={Circle} alt="" />
+</div>
+
+<style>
+  .switch {
+    width: 54px;
+    height: 27px;
+    background-color: var(--COD-Black);
+    border-radius: 27px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0 2px;
+  }
+</style>

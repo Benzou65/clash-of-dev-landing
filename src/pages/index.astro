@@ -4,6 +4,9 @@ import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
 
 import Section from "../components/Section.astro";
 import { sections } from "../data";
+import Header from "../components/Header.astro";
+import Progress from "../components/Progress.astro";
+import Hero from "../components/Hero.astro";
 ---
 
 <html lang="en">
@@ -15,10 +18,12 @@ import { sections } from "../data";
     <GoogleFontsOptimizer
       url="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     />
-    <title>Astro</title>
+    <title>Clash of Dev</title>
+    <meta name="description" content="<A>Front les tous!" />
   </head>
   <body>
-    <h1>Astro</h1>
+    <Header />
+    <Hero />
     {sections.map((section) => <Section {...section} />)}
   </body>
 </html>
@@ -26,12 +31,14 @@ import { sections } from "../data";
   body {
     font-family: "Inter", sans-serif;
     color: var(--COD-Black);
+    background-color: var(--COD-Beige);
   }
   * {
     margin: 0;
   }
   :root {
     --COD-Black: #262625;
+    --COD-Beige: #f3f3f1;
 
     --COD-COLOR-Purple-Light: #ebedff;
     --COD-COLOR-Purple-Mid: #9fa8fe;
