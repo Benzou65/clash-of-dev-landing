@@ -1,0 +1,82 @@
+---
+import Cursor from "../images/logos/Cursor.svg";
+import { Image } from "astro:assets";
+const { author, backgroundColor, borderColor, arrowDirection } = Astro.props;
+---
+
+<div class="comment__wrapper">
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="comment__cursor"
+  >
+    <g filter="url(#filter0_d_44_1672)">
+      <path
+        d="M3.82543 12L2.08728 0.890365L12 6.21918L6.94181 7.7397L3.82543 12Z"
+        fill={backgroundColor}></path>
+    </g>
+    <defs>
+      <filter
+        id="filter0_d_44_1672"
+        x="0.823199"
+        y="0.258523"
+        width="12.4405"
+        height="13.6371"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"></feColorMatrix>
+        <feOffset dy="0.631858"></feOffset>
+        <feGaussianBlur stdDeviation="0.631858"></feGaussianBlur>
+        <feComposite in2="hardAlpha" operator="out"></feComposite>
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_44_1672"></feBlend>
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_44_1672"
+          result="shape"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  <div class="comment">
+    @{author}
+  </div>
+</div>
+
+<style define:vars={{ backgroundColor, borderColor, arrowDirection }}>
+  .comment {
+    color: var(--COD-White);
+    display: inline;
+    background-color: var(--backgroundColor);
+    border: 2px solid var(--borderColor);
+    padding: 6px 12px 6px 12px;
+
+    border-radius: 1.54px 18.49px 18.49px 18.49px;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+  }
+
+  .comment__cursor {
+    position: relative;
+    top: -20px;
+    left: 10px;
+    color: var(--backgroundColor);
+  }
+</style>

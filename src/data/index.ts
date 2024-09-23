@@ -27,6 +27,14 @@ export const sections: Props[] = [
     alt: "",
     backgroundColor: "#EBEDFF",
     sticker: section1Sticker,
+    comment: [
+      {
+        author: "maislina_",
+        backgroundColor: "#9FA8FE",
+        borderColor: "#8A92E3",
+        arrowDirection: "left",
+      },
+    ],
   },
   {
     title: "LE BÂTISSEUR DE CODE",
@@ -40,6 +48,14 @@ export const sections: Props[] = [
     alt: "",
     backgroundColor: "#FFEDF5",
     sticker: section2Sticker,
+    comment: [
+      {
+        author: "Chris",
+        backgroundColor: "#F588B9",
+        borderColor: "#D6699A",
+        arrowDirection: "left",
+      },
+    ],
   },
   {
     title: "LE MAITRE DE LA FLUIDITÉ",
@@ -53,6 +69,20 @@ export const sections: Props[] = [
     alt: "",
     backgroundColor: "#ECFFCE",
     sticker: section3Sticker,
+    comment: [
+      {
+        author: "Lina",
+        backgroundColor: "#A2B87E",
+        borderColor: "#95AE6D",
+        arrowDirection: "left",
+      },
+      {
+        author: "Chris",
+        backgroundColor: "#A2B87E",
+        borderColor: "#95AE6D",
+        arrowDirection: "left",
+      },
+    ],
   },
   {
     title: "LE CHERCHEUR DE BREAKPOINT",
@@ -66,6 +96,20 @@ export const sections: Props[] = [
     alt: "",
     backgroundColor: "#BADAFF",
     sticker: section4Sticker,
+    comment: [
+      {
+        author: "Lina",
+        backgroundColor: "#6B93C0",
+        borderColor: "#6B93C0",
+        arrowDirection: "left",
+      },
+      {
+        author: "Chris",
+        backgroundColor: "#6B93C0",
+        borderColor: "#6B93C0",
+        arrowDirection: "left",
+      },
+    ],
   },
   {
     title: "LE MAITRE DES SECRETS",
@@ -79,6 +123,20 @@ export const sections: Props[] = [
     alt: "",
     backgroundColor: "#FFFAC2",
     sticker: section5Sticker,
+    comment: [
+      {
+        author: "Lina",
+        backgroundColor: "#CAC48E",
+        borderColor: "#C2BB82",
+        arrowDirection: "left",
+      },
+      {
+        author: "Chris",
+        backgroundColor: "#CAC48E",
+        borderColor: "#C2BB82",
+        arrowDirection: "left",
+      },
+    ],
   },
   {
     title: "LE SUR-BOOSTED",
@@ -92,5 +150,19 @@ export const sections: Props[] = [
     alt: "",
     backgroundColor: "#FFE6B3",
     sticker: section6Sticker,
+    comment: [
+      {
+        author: "Lina",
+        backgroundColor: "#F28164",
+        borderColor: "#D46F55",
+        arrowDirection: "left",
+      },
+      {
+        author: "Chris",
+        backgroundColor: "#F28164",
+        borderColor: "#D46F55",
+        arrowDirection: "left",
+      },
+    ],
   },
 ];
