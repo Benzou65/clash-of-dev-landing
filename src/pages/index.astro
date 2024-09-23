@@ -8,7 +8,7 @@ import Header from "../components/Header.astro";
 import Progress from "../components/Progress.astro";
 import Hero from "../components/Hero.astro";
 import Footer from "../components/Footer.astro";
-import CtaSection from "../components/CtaSection.astro";
+import FinalFrame from "../components/FinalFrame.astro";
 ---
 
 <html lang="en">
@@ -27,7 +27,7 @@ import CtaSection from "../components/CtaSection.astro";
     <Header />
     <Hero />
     {sections.map((section) => <Section {...section} />)}
-    <CtaSection />
+    <FinalFrame />
     <Footer />
   </body>
 </html>
@@ -43,6 +43,7 @@ import CtaSection from "../components/CtaSection.astro";
   :root {
     --COD-Black: #262625;
     --COD-Beige: #f3f3f1;
+    --COD-White: #fefefe;
 
     --COD-COLOR-Purple-Light: #ebedff;
     --COD-COLOR-Purple-Mid: #9fa8fe;

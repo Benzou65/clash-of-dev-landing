@@ -2,14 +2,14 @@
 import Logo from "./Logo.astro";
 import Switch from "./Switch.astro";
 import Progress from "./Progress.astro";
-const progress = 0;
+import ProgressNumber from "./ProgressNumber.astro";
 ---
 
 <header class="header">
   <Progress />
   <div class="header__group">
     <Logo />
-    <div class="header__progress">{progress}%</div>
+    <ProgressNumber />
     <Switch />
   </div>
 </header>

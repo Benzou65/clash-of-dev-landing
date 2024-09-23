@@ -1,0 +1,24 @@
+---
+
+---
+
+<div class="progress-number">0%</div>
+<script is:inline>
+  const progressElement = document.querySelector(".progress-number");
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const progress = Math.round((scrollTop / docHeight) * 100);
+    progressElement && (progressElement.textContent = `${progress}%`);
+  });
+</script>
+
+<style>
+  .progress-number {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+  }
+</style>
