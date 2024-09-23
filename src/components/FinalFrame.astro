@@ -18,6 +18,15 @@ import { Image } from "astro:assets";
   </div>
 </section>
 
+<script>
+  import { getFireworks } from "../utils/getFireworks";
+
+  const button = document.querySelector(".final-frame__button");
+  button?.addEventListener("click", () => {
+    getFireworks();
+  });
+</script>
+
 <style>
   .final-frame {
     position: sticky;

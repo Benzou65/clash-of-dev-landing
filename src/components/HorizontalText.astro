@@ -1,0 +1,60 @@
+---
+import Tag from "../images/logos/Tag.svg";
+import { Image } from "astro:assets";
+---
+
+<div class="horizontal-text-wrapper">
+  <div class="horizontal-text-container">
+    <span class="horizontal-text"
+      >&lt;A&gt;Front les tous! <Image
+        src={Tag}
+        alt=""
+        class="horizontal-text__tag"
+      /> Clash of Dev</span
+    >
+    <!-- <span class="horizontal-text"
+      >&lt;A&gt;Front les tous! <Image
+        src={Tag}
+        alt=""
+        class="horizontal-text__tag"
+      /> Clash of Dev</span
+    > -->
+  </div>
+</div>
+
+<style>
+  .horizontal-text-wrapper {
+    width: 100%;
+    overflow: hidden;
+    height: 200px;
+  }
+
+  .horizontal-text-container {
+    display: flex;
+    animation: scroll 10s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .horizontal-text {
+    font-family: Inter;
+    font-size: 170px;
+    font-weight: 600;
+    line-height: 200px;
+    text-align: left;
+    white-space: nowrap;
+    padding-right: 50px; /* Espace entre les répétitions du texte */
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    50% {
+      transform: translateX(-125%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+</style>

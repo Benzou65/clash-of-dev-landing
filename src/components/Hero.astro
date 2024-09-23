@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import Vector from "../images/logos/Vector.svg";
+import Card from "../images/Card.png";
+import ClashOfDev from "../images/logos/ClashOfDevHero.svg";
 ---
 
 <div class="hero">
@@ -10,6 +12,10 @@ import Vector from "../images/logos/Vector.svg";
     </div>
     <p class="hero__title">Que le plus fort, <em>l'emporte!</em></p>
   </div>
+  <div class="hero__card">
+    <Image src={ClashOfDev} alt="" class="hero__clash-of-dev" />
+    <Image src={Card} alt="" class="hero__card-image" />
+  </div>
 </div>
 
 <style>
@@ -18,6 +24,9 @@ import Vector from "../images/logos/Vector.svg";
     min-height: 356px;
     padding: 0 32px;
     margin-top: 201px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .hero__content {
@@ -41,6 +50,16 @@ import Vector from "../images/logos/Vector.svg";
 
   .hero__vector {
     margin-left: 22px;
+  }
+
+  .hero__card {
+    position: relative;
+  }
+
+  .hero__clash-of-dev {
+    position: absolute;
+    top: 18px;
+    right: -8px;
   }
 
   @media (max-width: 768px) {

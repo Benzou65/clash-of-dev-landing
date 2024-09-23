@@ -9,6 +9,7 @@ import Progress from "../components/Progress.astro";
 import Hero from "../components/Hero.astro";
 import Footer from "../components/Footer.astro";
 import FinalFrame from "../components/FinalFrame.astro";
+import HorizontalText from "../components/HorizontalText.astro";
 ---
 
 <html lang="en">
@@ -26,6 +27,7 @@ import FinalFrame from "../components/FinalFrame.astro";
   <body>
     <Header />
     <Hero />
+    <HorizontalText />
     {sections.map((section) => <Section {...section} />)}
     <FinalFrame />
     <Footer />
