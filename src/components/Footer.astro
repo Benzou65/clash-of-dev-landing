@@ -1,0 +1,47 @@
+---
+import Logo from "./Logo.astro";
+import Switch from "./Switch.astro";
+import Progress from "./Progress.astro";
+const progress = 0;
+---
+
+<footer class="footer">
+  <Logo />
+  <div class="footer__progress">{progress}%</div>
+  <div class="footer__copyright">@2024</div>
+</footer>
+
+<style>
+  .footer {
+    width: 100%;
+    position: relative;
+    background-color: var(--COD-Beige);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 40px 32px 20px 32px;
+  }
+
+  .footer__progress {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  .footer__copyright {
+    align-self: flex-end;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .footer__group {
+      padding: 40px 12px;
+    }
+  }
+</style>

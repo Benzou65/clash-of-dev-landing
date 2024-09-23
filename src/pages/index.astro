@@ -7,6 +7,8 @@ import { sections } from "../data";
 import Header from "../components/Header.astro";
 import Progress from "../components/Progress.astro";
 import Hero from "../components/Hero.astro";
+import Footer from "../components/Footer.astro";
+import CtaSection from "../components/CtaSection.astro";
 ---
 
 <html lang="en">
@@ -25,6 +27,8 @@ import Hero from "../components/Hero.astro";
     <Header />
     <Hero />
     {sections.map((section) => <Section {...section} />)}
+    <CtaSection />
+    <Footer />
   </body>
 </html>
 <style is:global>
@@ -43,5 +47,10 @@ import Hero from "../components/Hero.astro";
     --COD-COLOR-Purple-Light: #ebedff;
     --COD-COLOR-Purple-Mid: #9fa8fe;
     --COD-COLOR-Purple-Dark: #8a92e3;
+
+    --heigth-header-desktop: 87px;
+    --heigth-header-mobile: 107px;
+    --heigth-footer-desktop: 87px;
+    --heigth-footer-mobile: 107px;
   }
 </style>

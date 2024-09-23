@@ -49,7 +49,7 @@ const {
   .section {
     position: sticky;
     overflow: hidden;
-    top: 0;
+    top: var(--heigth-header-desktop);
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(3, auto);
@@ -57,7 +57,9 @@ const {
     margin-inline: 32px;
     background-color: var(--backgroundColor);
     border-radius: 60px;
-    height: 100vh;
+    height: calc(
+      100vh - var(--heigth-header-desktop) - var(--heigth-footer-desktop)
+    );
   }
 
   .section__category {
