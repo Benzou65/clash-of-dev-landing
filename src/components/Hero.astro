@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Vector from "../images/logos/Vector.svg";
 import Card from "../images/Card.png";
 import ClashOfDev from "../images/logos/ClashOfDevHero.svg";
+import Comment from "./Comment.astro";
 ---
 
 <div class="hero">
@@ -15,6 +16,27 @@ import ClashOfDev from "../images/logos/ClashOfDevHero.svg";
   <div class="hero__card">
     <Image src={ClashOfDev} alt="" class="hero__clash-of-dev" />
     <Image src={Card} alt="" class="hero__card-image" />
+    <Comment
+      author="maislina_"
+      backgroundColor="#F28164"
+      borderColor="#D46F55"
+      arrowDirection="left"
+      class="hero__comment_1"
+    />
+    <Comment
+      author="sometimecrea"
+      backgroundColor="#F588B9"
+      borderColor="#D6699A"
+      arrowDirection="right"
+      class="hero__comment_2"
+    />
+    <Comment
+      author="LLCoolChris"
+      backgroundColor="#6B93C0"
+      borderColor="#6B93C0"
+      arrowDirection="left"
+      class="hero__comment_3"
+    />
   </div>
 </div>
 
@@ -60,6 +82,24 @@ import ClashOfDev from "../images/logos/ClashOfDevHero.svg";
     position: absolute;
     top: 18px;
     right: -8px;
+  }
+
+  .hero__comment_1 {
+    position: absolute;
+    bottom: 130px;
+    right: -40px;
+  }
+
+  .hero__comment_2 {
+    position: absolute;
+    bottom: 38px;
+    left: -15px;
+  }
+
+  .hero__comment_3 {
+    position: absolute;
+    bottom: 7px;
+    right: -34px;
   }
 
   @media (max-width: 768px) {

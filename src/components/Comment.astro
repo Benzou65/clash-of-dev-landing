@@ -1,8 +1,19 @@
 ---
-const { author, backgroundColor, borderColor, arrowDirection } = Astro.props;
+const {
+  class: className,
+  author,
+  backgroundColor,
+  borderColor,
+  arrowDirection,
+  ...rest
+} = Astro.props;
 ---
 
-<div class="comment__wrapper">
+<div
+  class={`comment__wrapper ${className}`}
+  data-arrow-direction={arrowDirection}
+  {...rest}
+>
   <svg
     width="14"
     height="14"
@@ -56,25 +67,40 @@ const { author, backgroundColor, borderColor, arrowDirection } = Astro.props;
 </div>
 
 <style define:vars={{ backgroundColor, borderColor, arrowDirection }}>
+  .comment__wrapper {
+    position: relative;
+  }
   .comment {
+    position: relative;
     color: var(--COD-White);
-    display: inline;
+    display: block;
     background-color: var(--backgroundColor);
     border: 2px solid var(--borderColor);
     padding: 6px 12px 6px 12px;
+    height: 27px;
 
     border-radius: 1.54px 18.49px 18.49px 18.49px;
 
     font-size: 12px;
     font-weight: 500;
-    line-height: 20px;
+    line-height: 14px;
     text-align: left;
   }
 
   .comment__cursor {
-    position: relative;
-    top: -20px;
-    left: 10px;
+    position: absolute;
+    top: -13px;
+    left: -9px;
     color: var(--backgroundColor);
+  }
+
+  .comment__wrapper[data-arrow-direction="right"] .comment {
+    border-radius: 18.49px 1.54px 18.49px 18.49px;
+  }
+
+  .comment__wrapper[data-arrow-direction="right"] .comment__cursor {
+    left: auto;
+    right: -10px;
+    transform: scaleX(-1);
   }
 </style>

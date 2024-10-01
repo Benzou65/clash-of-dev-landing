@@ -12,19 +12,24 @@ import { Image } from "astro:assets";
         class="horizontal-text__tag"
       /> Clash of Dev</span
     >
-    <!-- <span class="horizontal-text"
+    <span class="horizontal-text"
       >&lt;A&gt;Front les tous! <Image
         src={Tag}
         alt=""
         class="horizontal-text__tag"
       /> Clash of Dev</span
-    > -->
+    >
   </div>
 </div>
 
 <style>
   .horizontal-text-wrapper {
-    width: 100%;
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
     overflow: hidden;
     height: 200px;
   }
@@ -41,7 +46,7 @@ import { Image } from "astro:assets";
     line-height: 200px;
     text-align: left;
     white-space: nowrap;
-    padding-right: 50px; /* Espace entre les répétitions du texte */
+    padding-right: 50px;
   }
 
   @keyframes scroll {

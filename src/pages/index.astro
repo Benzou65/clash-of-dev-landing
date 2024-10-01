@@ -25,10 +25,12 @@ import HorizontalText from "../components/HorizontalText.astro";
   </head>
   <body>
     <Header />
-    <Hero />
-    <HorizontalText />
-    {sections.map((section) => <Section {...section} />)}
-    <FinalFrame />
+    <main style={{ maxWidth: "1440px", margin: "0 auto" }}>
+      <Hero />
+      <HorizontalText />
+      {sections.map((section) => <Section {...section} />)}
+      <FinalFrame />
+    </main>
     <Footer />
   </body>
 </html>
