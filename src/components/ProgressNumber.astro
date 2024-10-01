@@ -3,14 +3,19 @@
 ---
 
 <div class="progress-number">0%</div>
-<script is:inline>
-  const progressElement = document.querySelector(".progress-number");
+<script>
+  const progressElements = document.querySelectorAll(".progress-number");
   window.addEventListener("scroll", () => {
     const scrollTop = window.scrollY;
     const docHeight =
       document.documentElement.scrollHeight - window.innerHeight;
     const progress = Math.round((scrollTop / docHeight) * 100);
-    progressElement && (progressElement.textContent = `${progress}%`);
+    progressElements.length > 0 &&
+      progressElements.forEach((element) => {
+        if (element instanceof HTMLElement) {
+          element.textContent = `${progress}%`;
+        }
+      });
   });
 </script>
 
