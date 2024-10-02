@@ -1,0 +1,157 @@
+---
+import ArrowBox from "./ArrowBox.astro";
+import TargetBox from "./TargetBox.astro";
+
+// Generate 10 random arrow
+const arrows = ["up", "down", "left", "right"] as const;
+const randomArrows = Array.from({ length: 10 }, (_, index) => ({
+  direction: arrows[Math.floor(Math.random() * arrows.length)],
+  class: `game__arrow-box game__arrow-box--${index + 1}`,
+}));
+---
+
+<div class="game" data-arrows={randomArrows}>
+  <div class="game__Arrow-Container">
+    <TargetBox>
+      {
+        randomArrows.map(({ direction, class: className }) => (
+          <ArrowBox arrow={direction} class={className} />
+        ))
+      }
+    </TargetBox>
+  </div>
+
+  <button class="game__button--start">Start</button>
+  <button class="game__button--measure">Measure</button>
+  <button class="game__button--reset">Reset</button>
+</div>
+
+<script>
+  // MEASURE DISTANCE
+  import { measureDistance } from "../../utils/measureDistance.ts";
+
+  // GET ARROWS SEQUENCE
+  const gameArrows = document.querySelectorAll(".arrow-box__arrow");
+  const randomArrows = Array.from(gameArrows)
+    .map((arrow) => {
+      const className = arrow.className;
+      if (className.includes("left")) return "ArrowLeft";
+      if (className.includes("up")) return "ArrowUp";
+      if (className.includes("down")) return "ArrowDown";
+      if (className.includes("right")) return "ArrowRight";
+      return null;
+    })
+    .filter((direction) => direction !== null);
+
+  // GAME STATE
+  let step = 1;
+  let userScore = 0;
+  let enemyScore = 0;
+
+  // GAME LOGIC
+  document.addEventListener("keydown", (event) => {
+    event.preventDefault();
+    console.log(step);
+    if (step > randomArrows.length) return;
+
+    const currentArrow = randomArrows[step - 1];
+    if (event.key.toLowerCase() === currentArrow.toLowerCase()) {
+      const distance = measureDistance(
+        ".target-box",
+        `.game__arrow-box--${step}`,
+      );
+      console.log("step", step);
+      if (!distance) return;
+
+      if (distance >= -20 && distance <= 20) {
+        userScore++;
+      } else {
+        enemyScore++;
+      }
+
+      step++;
+    } else {
+      enemyScore++;
+      step++;
+    }
+    console.log("SCORE:", userScore, " / ", enemyScore);
+    if (userScore === 6) {
+      alert("You win!");
+    } else if (enemyScore === 6) {
+      alert("You lose!");
+    }
+  });
+
+  // START GAME
+  const arrowBoxes = document.querySelectorAll(".game__arrow-box");
+  const startButton = document.querySelector(".game__button--start");
+
+  startButton?.addEventListener("click", () => {
+    arrowBoxes.forEach((arrowBox) => {
+      arrowBox.classList.add("game__arrow-box--active");
+    });
+  });
+
+  // RESET GAME
+  const resetButton = document.querySelector(".game__button--reset");
+  resetButton?.addEventListener("click", () => {
+    window.location.reload();
+  });
+</script>
+
+<style>
+  .game {
+    position: relative;
+
+    margin: 64px 0;
+    padding: 32px;
+
+    overflow: hidden;
+
+    width: 100%;
+    min-height: 600px;
+
+    background-color: var(--COD-Black);
+  }
+
+  .game__Arrow-Container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .game__arrow-box--1 {
+    left: 200px;
+  }
+  .game__arrow-box--2 {
+    left: 400px;
+  }
+  .game__arrow-box--3 {
+    left: 600px;
+  }
+  .game__arrow-box--4 {
+    left: 800px;
+  }
+  .game__arrow-box--5 {
+    left: 1000px;
+  }
+  .game__arrow-box--6 {
+    left: 1200px;
+  }
+  .game__arrow-box--7 {
+    left: 1400px;
+  }
+  .game__arrow-box--8 {
+    left: 1600px;
+  }
+  .game__arrow-box--9 {
+    left: 1800px;
+  }
+  .game__arrow-box--10 {
+    left: 2000px;
+  }
+
+  .game__arrow-box--active {
+    transform: translateX(-2400px);
+    transition: transform 20s linear;
+  }
+</style>

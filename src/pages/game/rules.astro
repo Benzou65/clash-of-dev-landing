@@ -1,0 +1,52 @@
+---
+import "../../styles/modern-normalize.css";
+import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
+
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <GoogleFontsOptimizer
+      url="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    />
+    <title>Clash of Dev - Les règles du jeu</title>
+    <meta name="description" content="Les règles du jeu de Clash of Dev" />
+  </head>
+  <body>
+    <Header />
+    <main style={{ maxWidth: "1440px", margin: "0 auto" }}>
+      Les règles du jeu
+    </main>
+    <Footer />
+  </body>
+</html>
+<style is:global>
+  body {
+    font-family: "Inter", sans-serif;
+    color: var(--COD-Black);
+    background-color: var(--COD-Beige);
+  }
+  * {
+    margin: 0;
+  }
+  :root {
+    --COD-Black: #262625;
+    --COD-Beige: #f3f3f1;
+    --COD-White: #fefefe;
+
+    --COD-COLOR-Purple-Light: #ebedff;
+    --COD-COLOR-Purple-Mid: #9fa8fe;
+    --COD-COLOR-Purple-Dark: #8a92e3;
+
+    --heigth-header-desktop: 87px;
+    --heigth-header-mobile: 107px;
+    --heigth-footer-desktop: 87px;
+    --heigth-footer-mobile: 107px;
+  }
+</style>
