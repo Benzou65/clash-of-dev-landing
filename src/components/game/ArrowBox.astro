@@ -1,0 +1,55 @@
+---
+import GameArrow from "../../images/game/GameArrow.svg";
+import { Image } from "astro:assets";
+
+interface Props {
+  arrow: "left" | "up" | "right" | "down";
+  class: string;
+}
+const { arrow, class: className, ...rest } = Astro.props;
+---
+
+<div class={`arrow-box ${className}`} {...rest}>
+  <div class=`arrow-box__arrow arrow-box__arrow--${arrow}`>
+    <Image src={GameArrow} alt="" width={42} height={42} draggable="false" />
+  </div>
+</div>
+
+<style>
+  .arrow-box {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 106px;
+    height: 106px;
+    background-color: var(--COD-Beige);
+    border-radius: 10px;
+
+    box-shadow: 0px -3px 4px 0px #88888840 inset;
+
+    font-size: 3rem;
+
+    .arrow-box__arrow {
+      position: relative;
+    }
+
+    & .arrow-box__arrow--left {
+      transform: rotate(-90deg);
+      left: 4px;
+    }
+    & .arrow-box__arrow--up {
+      transform: rotate(0deg);
+      top: 4px;
+    }
+    & .arrow-box__arrow--right {
+      transform: rotate(90deg);
+      right: 4px;
+    }
+    & .arrow-box__arrow--down {
+      transform: rotate(180deg);
+      bottom: 4px;
+    }
+  }
+</style>
