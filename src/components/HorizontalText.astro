@@ -38,6 +38,8 @@ import { Image } from "astro:assets";
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
+    margin-top: 120px;
+    margin-bottom: 80px;
     overflow: hidden;
     height: 200px;
   }
@@ -68,6 +70,27 @@ import { Image } from "astro:assets";
 
     100% {
       transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .horizontal-text-wrapper {
+      height: 100px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .horizontal-text {
+      font-size: 74px;
+      line-height: 82px;
+    }
+
+    .horizontal-text__tag {
+      padding: 12px 0;
+      width: 40px;
+      height: 40px;
+      position: relative;
+      top: 8px;
     }
   }
 </style>

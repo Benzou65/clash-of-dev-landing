@@ -1,51 +1,41 @@
 ---
-import "../../styles/modern-normalize.css";
-import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
+import Layout from "../../layouts/Layout.astro";
 
 import Header from "../../components/Header.astro";
 import Game from "../../components/game/Game.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <GoogleFontsOptimizer
-      url="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-    />
-    <title>Clash of Dev - Le jeu</title>
-    <meta name="description" content="Clash of Dev" />
-  </head>
-  <body>
-    <Header />
-    <main style={{ maxWidth: "1440px", minHeight: "100vh", margin: "0 auto" }}>
-      <Game />
-    </main>
-  </body>
-</html>
-<style is:global>
-  body {
-    font-family: "Inter", sans-serif;
-    color: var(--COD-Black);
-    background-color: var(--COD-Beige);
-  }
-  * {
-    margin: 0;
-  }
-  :root {
-    --COD-Black: #262625;
-    --COD-Beige: #f3f3f1;
-    --COD-White: #fefefe;
+<Layout>
+  <Header>
+    <span class="play__countdown">3, 2, 1 FIGHT !</span>
+  </Header>
+  <div class="play__background-image">
+    <div class="play__background-color">
+      <main
+        style={{ maxWidth: "1440px", minHeight: "100vh", margin: "0 auto" }}
+      >
+        <Game />
+      </main>
+    </div>
+  </div>
+</Layout>
 
-    --COD-COLOR-Purple-Light: #ebedff;
-    --COD-COLOR-Purple-Mid: #9fa8fe;
-    --COD-COLOR-Purple-Dark: #8a92e3;
+<style>
+  .play__countdown {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    color: var(--COD-Beige);
+  }
 
-    --heigth-header-desktop: 87px;
-    --heigth-header-mobile: 107px;
-    --heigth-footer-desktop: 87px;
-    --heigth-footer-mobile: 107px;
+  .play__background-image {
+    background-image: url("../../images/background.png");
+    background-size: cover;
+    background-position: center;
+  }
+  .play__background-color {
+    background-color: rgba(38, 38, 37, 0.8);
   }
 </style>
