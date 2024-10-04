@@ -66,6 +66,9 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
     if (step > randomArrows.length) return;
 
     const currentArrow = randomArrows[step - 1];
+    const currentArrowBox = document.querySelector(`.game__arrow-box--${step}`);
+    if (!currentArrowBox) return;
+
     if (event.key.toLowerCase() === currentArrow.toLowerCase()) {
       const distance = measureDistance(
         ".target-box",
@@ -74,19 +77,20 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
       if (!distance) return;
 
       if (distance >= -20 && distance <= 20) {
-        userScore++;
+        currentArrowBox.classList.add("arrow-box--success");
         playSound("sword");
+        userScore++;
       } else {
-        enemyScore++;
+        currentArrowBox.classList.add("arrow-box--failed");
         playSound("grunt");
+        enemyScore++;
       }
-
-      step++;
     } else {
+      currentArrowBox.classList.add("arrow-box--failed");
+      playSound("grunt");
       enemyScore++;
-      playSound("grunt"); // Jouer le son incorrect
-      step++;
     }
+    step++;
     console.log("SCORE:", userScore, " / ", enemyScore);
     if (userScore === 6) {
       alert("You win!");
