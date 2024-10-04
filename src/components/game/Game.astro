@@ -30,42 +30,8 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 </div>
 
 <script>
-  // Importer les sons
-  import ClickSound from "./spacebar-click-keyboard-199448.mp3";
-  import CorrectSound from "./sword-sound-effect-1-full-pack-on-gamesfxpackscom-234987.mp3";
-  import WrongSound from "./male_hurt7-48124.mp3";
-
-  // Créer un contexte audio
-  const audioContext = new window.AudioContext();
-  const soundBuffers: Record<string, AudioBuffer> = {};
-
-  // Fonction pour charger un son
-  async function loadSound(url: string) {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    return await audioContext.decodeAudioData(arrayBuffer);
-  }
-
-  // Charger tous les sons
-  Promise.all([
-    loadSound(ClickSound),
-    loadSound(CorrectSound),
-    loadSound(WrongSound),
-  ]).then(([clickBuffer, correctBuffer, wrongBuffer]) => {
-    soundBuffers.click = clickBuffer;
-    soundBuffers.correct = correctBuffer;
-    soundBuffers.wrong = wrongBuffer;
-  });
-
-  // Fonction pour jouer un son
-  function playSound(soundName: string) {
-    if (soundBuffers[soundName]) {
-      const source = audioContext.createBufferSource();
-      source.buffer = soundBuffers[soundName];
-      source.connect(audioContext.destination);
-      source.start(0);
-    }
-  }
+  import { loadAllSounds, playSound } from "../../utils/soundUtils";
+  loadAllSounds();
 
   // GET ARROWS SEQUENCE
   const gameArrows = document.querySelectorAll(".arrow-box__arrow");
@@ -89,15 +55,14 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
   import { measureDistance } from "../../utils/measureDistance.ts";
   document.addEventListener("keydown", (event) => {
     event.preventDefault();
-    playSound("click"); // Jouer le son de clic pour chaque touche pressée
 
     // Check if the pressed key is one of the arrow keys
     const validKeys = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"];
     if (!validKeys.includes(event.key)) {
+      playSound("click");
       return;
     }
 
-    console.log(step);
     if (step > randomArrows.length) return;
 
     const currentArrow = randomArrows[step - 1];
@@ -106,21 +71,20 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
         ".target-box",
         `.game__arrow-box--${step}`,
       );
-      console.log("step", step);
       if (!distance) return;
 
       if (distance >= -20 && distance <= 20) {
         userScore++;
-        playSound("correct"); // Jouer le son correct
+        playSound("sword");
       } else {
         enemyScore++;
-        playSound("wrong"); // Jouer le son incorrect
+        playSound("grunt");
       }
 
       step++;
     } else {
       enemyScore++;
-      playSound("wrong"); // Jouer le son incorrect
+      playSound("grunt"); // Jouer le son incorrect
       step++;
     }
     console.log("SCORE:", userScore, " / ", enemyScore);
