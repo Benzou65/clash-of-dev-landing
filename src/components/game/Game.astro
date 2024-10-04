@@ -1,6 +1,9 @@
 ---
 import ArrowBox from "./ArrowBox.astro";
 import TargetBox from "./TargetBox.astro";
+// import ClickSound from "./spacebar-click-keyboard-199448.mp3";
+// import CorrectSound from "./path/to/correct-sound.mp3";
+// import WrongSound from "./path/to/wrong-sound.mp3";
 
 // Generate 10 random arrow
 const arrows = ["up", "down", "left", "right"] as const;
@@ -27,8 +30,42 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 </div>
 
 <script>
-  // MEASURE DISTANCE
-  import { measureDistance } from "../../utils/measureDistance.ts";
+  // Importer les sons
+  import ClickSound from "./spacebar-click-keyboard-199448.mp3";
+  import CorrectSound from "./sword-sound-effect-1-full-pack-on-gamesfxpackscom-234987.mp3";
+  import WrongSound from "./male_hurt7-48124.mp3";
+
+  // Créer un contexte audio
+  const audioContext = new window.AudioContext();
+  const soundBuffers: Record<string, AudioBuffer> = {};
+
+  // Fonction pour charger un son
+  async function loadSound(url: string) {
+    const response = await fetch(url);
+    const arrayBuffer = await response.arrayBuffer();
+    return await audioContext.decodeAudioData(arrayBuffer);
+  }
+
+  // Charger tous les sons
+  Promise.all([
+    loadSound(ClickSound),
+    loadSound(CorrectSound),
+    loadSound(WrongSound),
+  ]).then(([clickBuffer, correctBuffer, wrongBuffer]) => {
+    soundBuffers.click = clickBuffer;
+    soundBuffers.correct = correctBuffer;
+    soundBuffers.wrong = wrongBuffer;
+  });
+
+  // Fonction pour jouer un son
+  function playSound(soundName: string) {
+    if (soundBuffers[soundName]) {
+      const source = audioContext.createBufferSource();
+      source.buffer = soundBuffers[soundName];
+      source.connect(audioContext.destination);
+      source.start(0);
+    }
+  }
 
   // GET ARROWS SEQUENCE
   const gameArrows = document.querySelectorAll(".arrow-box__arrow");
@@ -49,8 +86,17 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
   let enemyScore = 0;
 
   // GAME LOGIC
+  import { measureDistance } from "../../utils/measureDistance.ts";
   document.addEventListener("keydown", (event) => {
     event.preventDefault();
+    playSound("click"); // Jouer le son de clic pour chaque touche pressée
+
+    // Check if the pressed key is one of the arrow keys
+    const validKeys = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"];
+    if (!validKeys.includes(event.key)) {
+      return;
+    }
+
     console.log(step);
     if (step > randomArrows.length) return;
 
@@ -65,13 +111,16 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 
       if (distance >= -20 && distance <= 20) {
         userScore++;
+        playSound("correct"); // Jouer le son correct
       } else {
         enemyScore++;
+        playSound("wrong"); // Jouer le son incorrect
       }
 
       step++;
     } else {
       enemyScore++;
+      playSound("wrong"); // Jouer le son incorrect
       step++;
     }
     console.log("SCORE:", userScore, " / ", enemyScore);
@@ -119,35 +168,66 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
     gap: 1rem;
   }
 
+  :root {
+    --game-arrow-gap: 200px;
+    --game-arrow-width: 106px;
+    --game-arrow-offset: 200px;
+  }
   .game__arrow-box--1 {
-    left: 200px;
+    left: calc(var(--game-arrow-offset) + var(--game-arrow-width));
   }
   .game__arrow-box--2 {
-    left: 400px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap)
+    );
   }
   .game__arrow-box--3 {
-    left: 600px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        2
+    );
   }
   .game__arrow-box--4 {
-    left: 800px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        3
+    );
   }
   .game__arrow-box--5 {
-    left: 1000px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        4
+    );
   }
   .game__arrow-box--6 {
-    left: 1200px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        5
+    );
   }
   .game__arrow-box--7 {
-    left: 1400px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        6
+    );
   }
   .game__arrow-box--8 {
-    left: 1600px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        7
+    );
   }
   .game__arrow-box--9 {
-    left: 1800px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        8
+    );
   }
   .game__arrow-box--10 {
-    left: 2000px;
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        9
+    );
   }
 
   .game__arrow-box--active {
