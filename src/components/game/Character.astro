@@ -1,0 +1,134 @@
+---
+import { Image } from "astro:assets";
+import Boss1 from "../../images/game/boss1.png";
+import Boss2 from "../../images/game/boss2.png";
+import Hero1 from "../../images/game/hero1.png";
+import Hero2 from "../../images/game/hero2.png";
+
+interface Props {
+  type: "hero" | "boss";
+}
+const { type } = Astro.props;
+
+const getCharaterImg = (type: "hero" | "boss") => {
+  if (type === "boss") {
+    return {
+      normal: Boss1,
+      hurt: Boss2,
+    };
+  }
+
+  return {
+    normal: Hero1,
+    hurt: Hero2,
+  };
+};
+---
+
+<div class=`character character--${type}`>
+  <Image
+    src={getCharaterImg(type).normal}
+    alt="Character"
+    class="character__image"
+    width={getCharaterImg(type).normal.width / 2}
+    height={getCharaterImg(type).normal.height / 2}
+    draggable="false"
+  />
+  <Image
+    src={getCharaterImg(type).hurt}
+    alt="character hurt"
+    class="character__image--hurt"
+    width={getCharaterImg(type).hurt.width / 2}
+    height={getCharaterImg(type).hurt.height / 2}
+    draggable="false"
+  />
+</div>
+
+<style>
+  .character {
+    position: relative;
+  }
+
+  .character__image {
+    position: relative;
+    image-rendering: pixelated;
+  }
+
+  .character__image--hurt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    opacity: 0;
+    image-rendering: pixelated;
+  }
+
+  @keyframes characterHurt1 {
+    0% {
+      opacity: 1;
+    }
+    12.5% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 0;
+    }
+    37.5% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    62.5% {
+      opacity: 0;
+    }
+    75% {
+      opacity: 0;
+    }
+    87.5% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes characterHurt2 {
+    0% {
+      opacity: 0;
+    }
+    12.5% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    37.5% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    62.5% {
+      opacity: 0;
+    }
+    75% {
+      opacity: 1;
+    }
+    87.5% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .character--hurt .character__image {
+    animation: characterHurt1 800ms normal;
+  }
+
+  .character--hurt .character__image--hurt {
+    display: block;
+    animation: characterHurt2 800ms normal;
+  }
+</style>
