@@ -1,6 +1,7 @@
 ---
 import ArrowBox from "./ArrowBox.astro";
 import TargetBox from "./TargetBox.astro";
+import Character from "./Character.astro";
 
 // Generate 10 random arrows
 const arrows = ["up", "down", "left", "right"] as const;
@@ -11,6 +12,15 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 ---
 
 <div class="game" data-arrows={randomArrows}>
+  <div class="game__score">
+    <p>
+      Score: <span data-score="hero">0</span> / <span data-score="boss">0</span>
+    </p>
+  </div>
+  <div class="game__battleground">
+    <Character type="hero" />
+    <Character type="boss" />
+  </div>
   <div class="game__Arrow-Container">
     <TargetBox>
       {
@@ -20,23 +30,27 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
       }
     </TargetBox>
   </div>
-
-  <button class="game__button--start">Start</button>
-  <button class="game__button--measure">Measure</button>
-  <button class="game__button--reset">Reset</button>
+  <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
+    <button class="game__button--start">Start</button>
+    <button class="game__button--measure">Measure</button>
+    <button class="game__button--reset">Reset</button>
+  </div>
 </div>
 
 <script>
   import { loadAllSounds, playSound } from "../../utils/soundUtils";
   import { measureDistance } from "../../utils/measureDistance.ts";
 
+  const hero = document.querySelector(".character--hero");
+  const boss = document.querySelector(".character--boss");
+
   loadAllSounds();
 
   // Game state
   const gameState = {
     step: 1,
-    userScore: 0,
-    enemyScore: 0,
+    heroScore: 0,
+    bossScore: 0,
   };
 
   // Get arrow sequence
@@ -82,12 +96,20 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 
     if (isCorrectKey && distance && distance >= -20 && distance <= 20) {
       currentArrowBox.classList.add("arrow-box--success");
+      boss?.classList.add("character--hurt");
+      setTimeout(() => {
+        boss?.classList.remove("character--hurt");
+      }, 800);
       playSound("sword");
-      gameState.userScore++;
+      gameState.heroScore++;
     } else {
       currentArrowBox.classList.add("arrow-box--failed");
+      hero?.classList.add("character--hurt");
+      setTimeout(() => {
+        hero?.classList.remove("character--hurt");
+      }, 800);
       playSound("grunt");
-      gameState.enemyScore++;
+      gameState.bossScore++;
     }
 
     gameState.step++;
@@ -97,14 +119,14 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 
   // Update score
   const updateScore = () => {
-    console.log("SCORE:", gameState.userScore, " / ", gameState.enemyScore);
+    console.log("SCORE:", gameState.heroScore, " / ", gameState.bossScore);
   };
 
   // Check if game has ended
   const checkGameEnd = () => {
-    if (gameState.userScore === 6) {
+    if (gameState.heroScore === 6) {
       alert("You win!");
-    } else if (gameState.enemyScore === 6) {
+    } else if (gameState.bossScore === 6) {
       alert("You lose!");
     }
   };
@@ -135,15 +157,27 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 <style>
   .game {
     position: absolute;
-    bottom: 24px;
-    padding: 32px 120px;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 64px 120px 32px 120px;
     overflow: hidden;
     width: 100%;
   }
 
   .game__Arrow-Container {
+    position: relative;
+    bottom: 0px;
     display: flex;
     gap: 1rem;
+  }
+
+  .game__battleground {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
   }
 
   :root {
