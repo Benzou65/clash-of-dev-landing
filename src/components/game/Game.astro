@@ -1,11 +1,8 @@
 ---
 import ArrowBox from "./ArrowBox.astro";
 import TargetBox from "./TargetBox.astro";
-// import ClickSound from "./spacebar-click-keyboard-199448.mp3";
-// import CorrectSound from "./path/to/correct-sound.mp3";
-// import WrongSound from "./path/to/wrong-sound.mp3";
 
-// Generate 10 random arrow
+// Generate 10 random arrows
 const arrows = ["up", "down", "left", "right"] as const;
 const randomArrows = Array.from({ length: 10 }, (_, index) => ({
   direction: arrows[Math.floor(Math.random() * arrows.length)],
@@ -31,103 +28,117 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 
 <script>
   import { loadAllSounds, playSound } from "../../utils/soundUtils";
+  import { measureDistance } from "../../utils/measureDistance.ts";
+
   loadAllSounds();
 
-  // GET ARROWS SEQUENCE
-  const gameArrows = document.querySelectorAll(".arrow-box__arrow");
-  const randomArrows = Array.from(gameArrows)
-    .map((arrow) => {
-      const className = arrow.className;
-      if (className.includes("left")) return "ArrowLeft";
-      if (className.includes("up")) return "ArrowUp";
-      if (className.includes("down")) return "ArrowDown";
-      if (className.includes("right")) return "ArrowRight";
-      return null;
-    })
-    .filter((direction) => direction !== null);
+  // Game state
+  const gameState = {
+    step: 1,
+    userScore: 0,
+    enemyScore: 0,
+  };
 
-  // GAME STATE
-  let step = 1;
-  let userScore = 0;
-  let enemyScore = 0;
+  // Get arrow sequence
+  const getArrowSequence = () => {
+    const gameArrows = document.querySelectorAll(".arrow-box__arrow");
+    return Array.from(gameArrows)
+      .map((arrow) => {
+        const className = arrow.className;
+        if (className.includes("left")) return "ArrowLeft";
+        if (className.includes("up")) return "ArrowUp";
+        if (className.includes("down")) return "ArrowDown";
+        if (className.includes("right")) return "ArrowRight";
+        return null;
+      })
+      .filter((direction) => direction !== null);
+  };
 
-  // GAME LOGIC
-  import { measureDistance } from "../../utils/measureDistance.ts";
-  document.addEventListener("keydown", (event) => {
+  const randomArrows = getArrowSequence();
+
+  // Handle key press
+  const handleKeyPress = (event: KeyboardEvent) => {
     event.preventDefault();
 
-    // Check if the pressed key is one of the arrow keys
     const validKeys = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"];
     if (!validKeys.includes(event.key)) {
       playSound("click");
       return;
     }
 
-    if (step > randomArrows.length) return;
+    if (gameState.step > randomArrows.length) return;
 
-    const currentArrow = randomArrows[step - 1];
-    const currentArrowBox = document.querySelector(`.game__arrow-box--${step}`);
+    const currentArrow = randomArrows[gameState.step - 1];
+    const currentArrowBox = document.querySelector(
+      `.game__arrow-box--${gameState.step}`,
+    );
     if (!currentArrowBox) return;
 
-    if (event.key.toLowerCase() === currentArrow.toLowerCase()) {
-      const distance = measureDistance(
-        ".target-box",
-        `.game__arrow-box--${step}`,
-      );
-      if (!distance) return;
+    const isCorrectKey = event.key.toLowerCase() === currentArrow.toLowerCase();
+    const distance = measureDistance(
+      ".target-box",
+      `.game__arrow-box--${gameState.step}`,
+    );
 
-      if (distance >= -20 && distance <= 20) {
-        currentArrowBox.classList.add("arrow-box--success");
-        playSound("sword");
-        userScore++;
-      } else {
-        currentArrowBox.classList.add("arrow-box--failed");
-        playSound("grunt");
-        enemyScore++;
-      }
+    if (isCorrectKey && distance && distance >= -20 && distance <= 20) {
+      currentArrowBox.classList.add("arrow-box--success");
+      playSound("sword");
+      gameState.userScore++;
     } else {
       currentArrowBox.classList.add("arrow-box--failed");
       playSound("grunt");
-      enemyScore++;
+      gameState.enemyScore++;
     }
-    step++;
-    console.log("SCORE:", userScore, " / ", enemyScore);
-    if (userScore === 6) {
+
+    gameState.step++;
+    updateScore();
+    checkGameEnd();
+  };
+
+  // Update score
+  const updateScore = () => {
+    console.log("SCORE:", gameState.userScore, " / ", gameState.enemyScore);
+  };
+
+  // Check if game has ended
+  const checkGameEnd = () => {
+    if (gameState.userScore === 6) {
       alert("You win!");
-    } else if (enemyScore === 6) {
+    } else if (gameState.enemyScore === 6) {
       alert("You lose!");
     }
-  });
+  };
 
-  // START GAME
-  const arrowBoxes = document.querySelectorAll(".game__arrow-box");
-  const startButton = document.querySelector(".game__button--start");
-
-  startButton?.addEventListener("click", () => {
+  // Start game
+  const startGame = () => {
+    const arrowBoxes = document.querySelectorAll(".game__arrow-box");
     arrowBoxes.forEach((arrowBox) => {
       arrowBox.classList.add("game__arrow-box--active");
     });
-  });
+  };
 
-  // RESET GAME
-  const resetButton = document.querySelector(".game__button--reset");
-  resetButton?.addEventListener("click", () => {
+  // Reset game
+  const resetGame = () => {
     window.location.reload();
-  });
+  };
+
+  // Event listeners
+  document.addEventListener("keydown", handleKeyPress);
+  document
+    .querySelector(".game__button--start")
+    ?.addEventListener("click", startGame);
+  document
+    .querySelector(".game__button--reset")
+    ?.addEventListener("click", resetGame);
 </script>
 
 <style>
   .game {
     position: absolute;
     bottom: 24px;
-
     padding: 32px 120px;
-
     overflow: hidden;
-
     width: 100%;
-
-    /* background-color: var(--COD-Black); */
   }
 
   .game__Arrow-Container {
