@@ -1,7 +1,4 @@
 ---
-import GameArrow from "../../images/game/GameArrow.svg?raw";
-import { Image } from "astro:assets";
-import Arrow from "../../images/game/arrow.svg";
 interface Props {
   arrow: "left" | "up" | "right" | "down";
   class: string;
@@ -38,34 +35,27 @@ const { arrow, class: className, ...rest } = Astro.props;
     background-color: var(--COD-Beige);
     border-radius: 10px;
 
-    box-shadow: 0px -3px 4px 0px #88888840 inset;
-
     font-size: 3rem;
-
-    .arrow-box__arrow {
-      position: relative;
-    }
-
-    & .arrow-box__arrow--left {
-      transform: rotate(180deg);
-      left: 4px;
-    }
-    & .arrow-box__arrow--up {
-      transform: rotate(270deg);
-      top: 4px;
-    }
-    & .arrow-box__arrow--right {
-      transform: rotate(0deg);
-      right: 4px;
-    }
-    & .arrow-box__arrow--down {
-      transform: rotate(90deg);
-      bottom: 4px;
-    }
+  }
+  .arrow-box__arrow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--COD-Grey);
   }
 
-  .arrow-box__arrow svg {
-    color: var(--COD-Grey);
+  .arrow-box__arrow--left {
+    transform: rotate(180deg);
+  }
+  .arrow-box__arrow--up {
+    transform: rotate(270deg);
+  }
+  .arrow-box__arrow--right {
+    transform: rotate(0deg);
+  }
+  .arrow-box__arrow--down {
+    transform: rotate(90deg);
   }
 
   .arrow-box--success {
