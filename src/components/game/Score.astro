@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import DoubleSword from "../../images/game/double-sword.png";
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class=`score ${className}` {...rest}>
+  <div class="score__hero">
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+  </div>
+  <Image
+    src={DoubleSword}
+    alt="Score"
+    width={DoubleSword.width / 2}
+    height={DoubleSword.height / 2}
+  />
+  <div class="score__boss">
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+    <div class="score__light"></div>
+  </div>
+</div>
+
+<style>
+  :root {
+    --hero-color: var(--COD-COLOR-Green-Mid);
+    --boss-color: var(--COD-COLOR-Orange-Light);
+    --off-color: #a1a09d;
+  }
+
+  .score,
+  .score__hero,
+  .score__boss {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 45px;
+  }
+
+  .score__light {
+    width: 50px;
+    height: 50px;
+    background-color: var(--off-color);
+    border-radius: 50%;
+  }
+
+  .score__light--on-hero {
+    background-color: var(--hero-color);
+  }
+
+  .score__light--on-boss {
+    background-color: var(--boss-color);
+  }
+</style>
