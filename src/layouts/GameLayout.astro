@@ -5,6 +5,7 @@ import Shield from "../images/logos/Shield.svg";
 import Lightning from "../images/logos/Lightning.svg";
 import ClashOfDevHero from "../images/logos/ClashOfDevHero.svg";
 import { Image } from "astro:assets";
+import Comment from "../components/Comment.astro";
 ---
 
 <Layout>
@@ -46,6 +47,27 @@ import { Image } from "astro:assets";
         width={103}
         height={80}
       />
+      <Comment
+        class="game-layout__comment--1"
+        author="LLCoolChris"
+        backgroundColor="#6B93C0"
+        borderColor="#6B93C0"
+        arrowDirection="left"
+      />
+      <Comment
+        class="game-layout__comment--2"
+        author="sometimecrea"
+        backgroundColor="#F588B9"
+        borderColor="#D6699A"
+        arrowDirection="right"
+      />
+      <Comment
+        class="game-layout__comment--3"
+        author="maislina_"
+        backgroundColor="#F28164"
+        borderColor="#D46F55"
+        arrowDirection="right"
+      />
     </div>
 
     <button class="game-layout__button"><slot name="button" /></button>
@@ -68,13 +90,14 @@ import { Image } from "astro:assets";
     text-align: center;
   }
   .game-layout__container {
-    width: 1440px;
+    max-width: 1440px;
     height: 631px;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(3, auto);
     column-gap: 20px;
     margin-inline: 32px;
+    margin: 0 auto;
   }
 
   .game-layout__card {
@@ -104,7 +127,7 @@ import { Image } from "astro:assets";
     width: 100%;
     img {
       position: relative;
-      left: 38%;
+      left: 565px;
     }
   }
 
@@ -184,6 +207,34 @@ import { Image } from "astro:assets";
     &:hover {
       cursor: pointer;
     }
+  }
+
+  .game-layout__comment--1 {
+    grid-column: 14;
+    grid-row: 1;
+    position: relative;
+    left: 100px;
+    top: 78px;
+    rotate: -6.64deg;
+    height: min-content;
+  }
+  .game-layout__comment--2 {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    left: 76px;
+    top: 590px;
+    rotate: -10.41deg;
+    height: min-content;
+  }
+  .game-layout__comment--3 {
+    grid-column: 14;
+    grid-row: 1;
+    position: relative;
+    left: 67px;
+    top: 682px;
+    rotate: -10.41deg;
+    height: min-content;
   }
 
   @media (max-width: 768px) {
