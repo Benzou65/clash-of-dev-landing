@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import Vector from "../images/logos/Vector.svg";
+import Shield from "../images/logos/Shield.svg";
 import Card from "../images/Card.png";
 import ClashOfDev from "../images/logos/ClashOfDevHero.svg";
 import Comment from "./Comment.astro";
@@ -9,7 +9,7 @@ import Comment from "./Comment.astro";
 <div class="hero">
   <div class="hero__content">
     <div class="hero__image-wrapper">
-      <Image src={Vector} alt="" class="hero__vector" />
+      <Image src={Shield} alt="" class="shield" />
     </div>
     <p class="hero__title">Que le plus fort, <em>l'emporte!</em></p>
   </div>
@@ -70,7 +70,7 @@ import Comment from "./Comment.astro";
     shape-outside: content-box;
   }
 
-  .hero__vector {
+  .hero__shield {
     margin-left: 22px;
   }
 
@@ -128,7 +128,7 @@ import Comment from "./Comment.astro";
       right: 12px;
     }
 
-    .hero__vector {
+    .hero__shield {
       transform: rotate(21.39deg);
     }
   }

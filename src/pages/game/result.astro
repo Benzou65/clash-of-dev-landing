@@ -1,0 +1,63 @@
+---
+import GameLayout from "../../layouts/GameLayout.astro";
+import Header from "../../components/Header.astro";
+---
+
+<GameLayout>
+  <span slot="header" class="play__countdown">3, 2, 1 FIGHT !</span>
+  <Fragment slot="subtitle">/GRANDGAGNANT</Fragment>
+
+  <Fragment slot="title">
+    <span class="result__title--win">You are the winner!</span>
+    <span class="result__title--lose">You are the loser!</span>
+  </Fragment>
+
+  <Fragment slot="content">
+    <span class="result__content--win">
+      ( La honte )<br />
+      <br />
+      Tu ne peux pas rester sur une défaite, tu te dois de te défendre contre ce
+      système pyramidal de merde.<br />
+      <br />
+      On rejoue ?
+    </span>
+    <span class="result__content--lose">
+      Oh wow ! <strong>Quel BOSS!</strong><br />
+      <br />
+      Bravo tu as remis ton lead un peu trop confiant à sa place ! <br />
+      <br />
+      On rejoue ?
+    </span>
+  </Fragment>
+
+  <span slot="button">Rejouer ?</span>
+</GameLayout>
+
+<script>
+  const url = new URL(window.location.href);
+  const result = url.searchParams.get("result");
+  const streak = url.searchParams.get("streak");
+
+  const title = document.querySelector(
+    `.result__title--${result}`,
+  ) as HTMLElement;
+  const content = document.querySelector(
+    `.result__content--${result}`,
+  ) as HTMLElement;
+
+  title.style.display = "block";
+  content.style.display = "block";
+</script>
+
+<style>
+  .result {
+    background-color: red;
+  }
+
+  .result__title--win,
+  .result__title--lose,
+  .result__content--win,
+  .result__content--lose {
+    display: none;
+  }
+</style>

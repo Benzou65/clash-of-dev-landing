@@ -1,0 +1,142 @@
+---
+import Layout from "./Layout.astro";
+import Header from "../components/Header.astro";
+import Shield from "../images/logos/Shield.svg";
+import Lightning from "../images/logos/Lightning.svg";
+import ClashOfDevHero from "../images/logos/ClashOfDevHero.svg";
+import { Image } from "astro:assets";
+---
+
+<Layout>
+  <div class="game-layout">
+    <Header>
+      <slot name="header" />
+    </Header>
+    <Image src={Lightning} alt="Lightning" class="game-layout__lightning" />
+    <div class="game-layout__container">
+      <div class="game-layout__card">
+        <Image
+          src={Shield}
+          alt="Shield"
+          class="game-layout__shield"
+          width={103}
+          height={80}
+        />
+        <Image
+          src={ClashOfDevHero}
+          alt="Clash of Dev Hero"
+          class="game-layout__clash-of-dev-hero"
+          width={70}
+          height={73}
+        />
+        <p slot="subtitle" class="game-layout__subtitle">
+          <slot name="subtitle" />
+        </p>
+        <h1 class="game-layout__title">
+          <slot name="title" />
+        </h1>
+        <p class="game-layout__content">
+          <slot name="content" />
+        </p>
+        <slot />
+      </div>
+    </div>
+    <button class="game-layout__button"><slot name="button" /></button>
+  </div>
+</Layout>
+
+<style>
+  .game-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+  }
+  .game-layout__container {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(3, auto);
+    column-gap: 20px;
+    margin-inline: 32px;
+  }
+
+  .game-layout__card {
+    position: relative;
+    background-color: var(--secondary);
+    color: var(--primary);
+    border-radius: 60px;
+    grid-column: 3 / span 12;
+    grid-row: 1;
+
+    padding-left: calc((100% - 20px * 11) / 12);
+    padding-top: 48px;
+    padding-bottom: 85px;
+  }
+
+  .game-layout__lightning {
+    margin-top: var(--height-header-desktop);
+    position: relative;
+    left: 35%;
+    width: 100%;
+  }
+
+  .game-layout__shield {
+    position: absolute;
+    left: -40px;
+    top: -32px;
+  }
+
+  .game-layout__clash-of-dev-hero {
+    position: absolute;
+    right: 16px;
+    top: 24px;
+  }
+
+  .game-layout__subtitle {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+  }
+
+  .game-layout__button {
+    background-color: var(--secondary);
+    color: var(--primary);
+    position: relative;
+    width: 212px;
+    height: 58px;
+
+    padding: 22px 10px 22px 10px;
+    border: none;
+    border-radius: 60px;
+
+    margin: 40px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 13.67px;
+    font-weight: 600;
+    line-height: 14px;
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .game-layout__container {
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(3, auto);
+      column-gap: 8px;
+      margin-inline: 12px;
+    }
+
+    .game-layout__card {
+      grid-column: 2 / span 6;
+    }
+  }
+</style>
