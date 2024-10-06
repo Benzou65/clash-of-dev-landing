@@ -70,7 +70,7 @@ import Comment from "../components/Comment.astro";
       />
     </div>
 
-    <button class="game-layout__button"><slot name="button" /></button>
+    <a href="#" class="game-layout__button"><slot name="button" /></a>
   </div>
 </Layout>
 
@@ -183,6 +183,7 @@ import Comment from "../components/Comment.astro";
   }
 
   .game-layout__button {
+    text-decoration: none;
     background-color: var(--secondary);
     color: var(--primary);
     position: relative;
