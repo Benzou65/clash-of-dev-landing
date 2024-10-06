@@ -1,52 +1,87 @@
 ---
-import "../../styles/modern-normalize.css";
-import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
-
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
+import GameLayout from "../../layouts/GameLayout.astro";
+import { Image } from "astro:assets";
+import PlayerDefeated from "../../images/game/Player-vaincu.png";
+import BossDefeated from "../../images/game/Boss-vaincu.png";
+import Key1 from "../../images/game/key1.svg";
+import Key2 from "../../images/game/key2.svg";
+import Boss from "../../images/game/boss1.png";
+import Star from "../../images/logos/Star.svg";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <GoogleFontsOptimizer
-      url="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+<GameLayout>
+  <Fragment slot="header">CLASH TIME!</Fragment>
+
+  <Fragment slot="subtitle">/ RÈGLESDUJEU</Fragment>
+
+  <Fragment slot="title">
+    <span class="result__title"
+      >Règles <span class="result__title-key"
+        ><Image src={Key1} alt="Key" width={Key1.width} height={Key1.height} />
+        <Image
+          src={Key2}
+          alt="Key"
+          width={Key2.width}
+          height={Key2.height}
+        /></span
+      > du Clash</span
+    ><Image src={Star} alt="" class="result__title-star" />
+  </Fragment>
+
+  <Fragment slot="content">
+    <span class="result__content">
+      Que serait Clash of Dev sans un <strong style={{ fontWeight: 700 }}
+        >réel Clash</strong
+      > ? Une réelle bataille ?<br />
+      <br />
+      Exécute la <strong>bonne combinaison des 10 touches</strong> à temps pour vaincre
+      <strong>LE SUR-BOOSTED</strong>, aka ton lead tech un peu chiant.<br />
+      <br />
+      <strong>Montre nous tes skills !</strong>
+    </span>
+  </Fragment>
+
+  <Fragment slot="images">
+    <Image
+      src={Boss}
+      alt="Boss"
+      class="result__image"
+      width={Boss.width / 2}
+      height={Boss.height / 2}
     />
-    <title>Clash of Dev - Les règles du jeu</title>
-    <meta name="description" content="Les règles du jeu de Clash of Dev" />
-  </head>
-  <body>
-    <Header />
-    <main style={{ maxWidth: "1440px", margin: "0 auto" }}>
-      Les règles du jeu
-    </main>
-    <Footer />
-  </body>
-</html>
-<style is:global>
-  body {
-    font-family: "Inter", sans-serif;
-    color: var(--COD-Black);
-    background-color: var(--COD-Beige);
-  }
-  * {
-    margin: 0;
-  }
-  :root {
-    --COD-Black: #262625;
-    --COD-Beige: #f3f3f1;
-    --COD-White: #fefefe;
+  </Fragment>
 
-    --COD-COLOR-Purple-Light: #ebedff;
-    --COD-COLOR-Purple-Mid: #9fa8fe;
-    --COD-COLOR-Purple-Dark: #8a92e3;
+  <span slot="button">Start the game</span>
+</GameLayout>
 
-    --height-header-desktop: 87px;
-    --height-header-mobile: 107px;
-    --height-footer-desktop: 87px;
-    --height-footer-mobile: 107px;
+<script>
+  const button = document.querySelector(
+    ".game-layout__button",
+  ) as HTMLAnchorElement;
+  button.href = "/game/character-selection";
+</script>
+
+<style>
+  .result__title-key {
+    position: relative;
+    right: 200px;
+  }
+
+  .result__title-key :first-child {
+    position: absolute;
+    top: 50px;
+    left: -40px;
+  }
+
+  .result__title-key :last-child {
+    position: absolute;
+    top: 0;
+    left: 50px;
+  }
+
+  .result__title-star {
+    position: relative;
+    bottom: 60px;
+    left: 10px;
   }
 </style>
