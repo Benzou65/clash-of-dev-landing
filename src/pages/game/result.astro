@@ -1,10 +1,15 @@
 ---
 import GameLayout from "../../layouts/GameLayout.astro";
-import Header from "../../components/Header.astro";
+import { Image } from "astro:assets";
+import PlayerDefeated from "../../images/game/Player-vaincu.png";
+import BossDefeated from "../../images/game/Boss-vaincu.png";
+import Hero from "../../images/game/hero1.png";
+import Boss from "../../images/game/boss1.png";
 ---
 
 <GameLayout>
-  <span slot="header" class="play__countdown">3, 2, 1 FIGHT !</span>
+  <Fragment slot="header">3, 2, 1 FIGHT !</Fragment>
+
   <Fragment slot="subtitle">/GRANDGAGNANT</Fragment>
 
   <Fragment slot="title">
@@ -30,6 +35,37 @@ import Header from "../../components/Header.astro";
     </span>
   </Fragment>
 
+  <Fragment slot="images">
+    <Image
+      src={Hero}
+      alt="Hero"
+      class="result__image-winner--win"
+      width={Hero.width / 2}
+      height={Hero.height / 2}
+    />
+    <Image
+      src={Boss}
+      alt="Boss"
+      class="result__image-winner--lose"
+      width={Boss.width / 2}
+      height={Boss.height / 2}
+    />
+    <Image
+      src={PlayerDefeated}
+      alt="Player Defeated"
+      class="result__image-defeated--lose"
+      width={PlayerDefeated.width / 2}
+      height={PlayerDefeated.height / 2}
+    />
+    <Image
+      src={BossDefeated}
+      alt="Boss Defeated"
+      class="result__image-defeated--win"
+      width={BossDefeated.width / 2}
+      height={BossDefeated.height / 2}
+    />
+  </Fragment>
+
   <span slot="button">Rejouer ?</span>
 </GameLayout>
 
@@ -44,20 +80,40 @@ import Header from "../../components/Header.astro";
   const content = document.querySelector(
     `.result__content--${result}`,
   ) as HTMLElement;
+  const imageDefeated = document.querySelector(
+    `.result__image-defeated--${result}`,
+  ) as HTMLElement;
+  const imageWinner = document.querySelector(
+    `.result__image-winner--${result}`,
+  ) as HTMLElement;
 
   title.style.display = "block";
   content.style.display = "block";
+  imageDefeated.style.display = "block";
+  imageWinner.style.display = "block";
 </script>
 
 <style>
-  .result {
-    background-color: red;
-  }
-
   .result__title--win,
   .result__title--lose,
   .result__content--win,
-  .result__content--lose {
+  .result__content--lose,
+  .result__image-defeated--lose,
+  .result__image-defeated--win,
+  .result__image-winner--win,
+  .result__image-winner--lose {
     display: none;
+  }
+
+  .result__image-winner--win {
+    position: absolute;
+    bottom: -16px;
+    right: 120px;
+    rotate: -23.08deg;
+  }
+  .result__image-winner--lose {
+    position: absolute;
+    bottom: 0;
+    right: 140px;
   }
 </style>
