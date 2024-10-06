@@ -10,18 +10,15 @@ import { Image } from "astro:assets";
 <Layout>
   <div class="game-layout">
     <Header>
-      <slot name="header" />
+      <span class="game-layout__header">
+        <slot name="header" />
+      </span>
     </Header>
-    <Image src={Lightning} alt="Lightning" class="game-layout__lightning" />
+    <div class="game-layout__lightning">
+      <Image src={Lightning} alt="Lightning" />
+    </div>
     <div class="game-layout__container">
       <div class="game-layout__card">
-        <Image
-          src={Shield}
-          alt="Shield"
-          class="game-layout__shield"
-          width={103}
-          height={80}
-        />
         <Image
           src={ClashOfDevHero}
           alt="Clash of Dev Hero"
@@ -38,9 +35,19 @@ import { Image } from "astro:assets";
         <p class="game-layout__content">
           <slot name="content" />
         </p>
-        <slot />
+        <div class="game-layout__images">
+          <slot name="images" />
+        </div>
       </div>
+      <Image
+        src={Shield}
+        alt="Shield"
+        class="game-layout__shield"
+        width={103}
+        height={80}
+      />
     </div>
+
     <button class="game-layout__button"><slot name="button" /></button>
   </div>
 </Layout>
@@ -50,9 +57,19 @@ import { Image } from "astro:assets";
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     height: 100vh;
   }
+  .game-layout__header {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+  }
   .game-layout__container {
+    width: 1440px;
+    height: 631px;
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(3, auto);
@@ -67,22 +84,35 @@ import { Image } from "astro:assets";
     border-radius: 60px;
     grid-column: 3 / span 12;
     grid-row: 1;
+    overflow: hidden;
 
     padding-left: calc((100% - 20px * 11) / 12);
+    padding-right: calc(((100% - 20px * 11) / 12) * 3);
     padding-top: 48px;
     padding-bottom: 85px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
   }
 
   .game-layout__lightning {
     margin-top: var(--height-header-desktop);
-    position: relative;
-    left: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    img {
+      position: relative;
+      left: 38%;
+    }
   }
 
   .game-layout__shield {
-    position: absolute;
-    left: -40px;
+    grid-column: 3 / span 12;
+    grid-row: 1;
+    position: relative;
+    left: -38px;
     top: -32px;
   }
 
@@ -98,6 +128,35 @@ import { Image } from "astro:assets";
     font-weight: 500;
     line-height: 20px;
     text-align: left;
+  }
+
+  .game-layout__title {
+    font-family: Inter;
+    font-size: 115px;
+    font-weight: 600;
+    line-height: 123px;
+    text-align: justify;
+  }
+
+  .game-layout__content {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    opacity: 0.6;
+    width: 60%;
+  }
+
+  .game-layout__images {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
   }
 
   .game-layout__button {
