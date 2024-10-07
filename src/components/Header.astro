@@ -2,12 +2,17 @@
 import Logo from "./Logo.astro";
 import Switch from "./Switch.astro";
 import Progress from "./Progress.astro";
+
+interface Props {
+  step?: "pool" | "final";
+}
+const { step } = Astro.props;
 ---
 
 <header class="header">
   <Progress />
   <div class="header__group">
-    <Logo />
+    <Logo step={step} />
     <slot />
     <div class="header__switch">
       <Switch />
