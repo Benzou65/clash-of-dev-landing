@@ -149,9 +149,19 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 
   // Check if game has ended
   const checkGameEnd = () => {
-    if (gameState.heroScore === 6) {
-      window.location.href = `/game/result?result=win&streak=1`;
+    if (gameState.heroScore === 1) {
+      const maxStreak = parseInt(localStorage.getItem("maxStreak") ?? "0");
+      const currentStreak = parseInt(
+        localStorage.getItem("currentStreak") ?? "0",
+      );
+      localStorage.setItem("currentStreak", (currentStreak + 1).toString());
+      if (currentStreak > maxStreak) {
+        localStorage.setItem("maxStreak", (currentStreak + 1).toString());
+      }
+
+      window.location.href = `/game/result?result=win&streak=${currentStreak}`;
     } else if (gameState.bossScore === 6) {
+      localStorage.setItem("currentStreak", "0");
       window.location.href = `/game/result?result=lose&streak=0`;
     }
   };
@@ -284,6 +294,8 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 
   .game__arrow-box--active {
     transform: translateX(-2400px);
-    transition: transform 20s linear;
+    transition-property: transform;
+    transition-duration: 20s;
+    transition-timing-function: linear;
   }
 </style>
