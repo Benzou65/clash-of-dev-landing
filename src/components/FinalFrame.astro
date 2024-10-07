@@ -48,6 +48,9 @@ import { Image } from "astro:assets";
   const button = document.querySelector(".final-frame__button");
   button?.addEventListener("click", () => {
     getFireworks();
+    setTimeout(() => {
+      window.location.href = "/game/rules";
+    }, 2000);
   });
 </script>
 
