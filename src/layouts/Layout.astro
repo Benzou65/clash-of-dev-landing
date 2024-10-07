@@ -19,6 +19,33 @@ import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
     <slot />
   </body>
 </html>
+
+<script>
+  // Function to check and set the theme
+  function setTheme() {
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const currentTheme = localStorage.getItem("theme");
+
+    if (
+      currentTheme === "dark" ||
+      (!currentTheme && prefersDarkScheme.matches)
+    ) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  }
+
+  // Set the theme on initial load
+  setTheme();
+
+  // Listen for changes in color scheme preference
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", setTheme);
+</script>
+
 <style is:global>
   body {
     font-family: "Inter", sans-serif;
