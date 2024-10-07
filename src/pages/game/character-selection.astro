@@ -1,52 +1,172 @@
 ---
-import "../../styles/modern-normalize.css";
-import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
-
+import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
+import Shield from "../../images/logos/Shield.svg";
+import Lightning from "../../images/logos/Lightning.svg";
+import ClashOfDevHero from "../../images/logos/ClashOfDevHero.svg";
+import { Image } from "astro:assets";
+import Comment from "../../components/Comment.astro";
+import CharacterSection from "../../components/game/CharacterSection.astro";
+
+import { sections } from "../../data";
+
+const characters = [sections[2], sections[0], sections[1]];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <GoogleFontsOptimizer
-      url="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+<Layout>
+  <div class="game-layout">
+    <Header step="final">
+      <span class="game-layout__header"> PICK A CHAMPIONS ! </span>
+    </Header>
+    <div class="game-layout__lightning">
+      <Image src={Lightning} alt="Lightning" />
+    </div>
+    <Image
+      src={Shield}
+      alt="Shield"
+      class="game-layout__shield"
+      width={103}
+      height={80}
     />
-    <title>Clash of Dev - Selection du héros</title>
-    <meta name="description" content="Selection du héros de Clash of Dev" />
-  </head>
-  <body>
-    <Header />
-    <main style={{ maxWidth: "1440px", margin: "0 auto" }}>
-      Selection du héros
-    </main>
-    <Footer />
-  </body>
-</html>
-<style is:global>
-  body {
-    font-family: "Inter", sans-serif;
-    color: var(--COD-Black);
-    background-color: var(--COD-Beige);
-  }
-  * {
-    margin: 0;
-  }
-  :root {
-    --COD-Black: #262625;
-    --COD-Beige: #f3f3f1;
-    --COD-White: #fefefe;
+    <div class="game-layout__card">
+      {characters.map((character) => <CharacterSection {...character} />)}
+    </div>
 
-    --COD-COLOR-Purple-Light: #ebedff;
-    --COD-COLOR-Purple-Mid: #9fa8fe;
-    --COD-COLOR-Purple-Dark: #8a92e3;
+    <Comment
+      class="game-layout__comment--1"
+      author="LLCoolChris"
+      backgroundColor="#6B93C0"
+      borderColor="#6B93C0"
+      arrowDirection="left"
+    />
+    <Comment
+      class="game-layout__comment--2"
+      author="sometimecrea"
+      backgroundColor="#F588B9"
+      borderColor="#D6699A"
+      arrowDirection="right"
+    />
+    <Comment
+      class="game-layout__comment--3"
+      author="maislina_"
+      backgroundColor="#F28164"
+      borderColor="#D46F55"
+      arrowDirection="right"
+    />
 
-    --height-header-desktop: 87px;
-    --height-header-mobile: 107px;
-    --height-footer-desktop: 87px;
-    --height-footer-mobile: 107px;
+    <a href="#" class="game-layout__button">Select Champion</a>
+  </div>
+</Layout>
+
+<style>
+  .game-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(50% 50% at 50% 50%, #5a5a59 0%, #262625 100%);
+  }
+  .game-layout__header {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  .game-layout__card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-200-rem);
+    cursor: pointer;
+
+    > * {
+      transition: all 0.3s ease-in-out;
+    }
+
+    > :nth-child(2) {
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+
+    > :first-child,
+    > :last-child {
+      opacity: 0.6;
+      cursor: not-allowed;
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  .game-layout__lightning {
+    margin-top: var(--height-header-desktop);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    img {
+      position: relative;
+      left: 565px;
+    }
+  }
+
+  .game-layout__shield {
+    position: absolute;
+    left: 170px;
+    top: 52px;
+  }
+
+  .game-layout__button {
+    text-decoration: none;
+    background-color: var(--secondary);
+    color: var(--primary);
+    position: relative;
+    width: 212px;
+    height: 58px;
+
+    padding: 22px 10px 22px 10px;
+    border: none;
+    border-radius: 60px;
+
+    margin: 40px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 13.67px;
+    font-weight: 600;
+    line-height: 14px;
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .game-layout__comment--1 {
+    position: absolute;
+    right: 510px;
+    top: 90px;
+    rotate: -6.64deg;
+    height: min-content;
+  }
+  .game-layout__comment--2 {
+    position: absolute;
+    left: 310px;
+    bottom: 80px;
+    rotate: -10.41deg;
+    height: min-content;
+  }
+  .game-layout__comment--3 {
+    position: absolute;
+    right: 167px;
+    bottom: 70px;
+    rotate: -10.41deg;
+    height: min-content;
   }
 </style>

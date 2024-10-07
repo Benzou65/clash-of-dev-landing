@@ -1,0 +1,180 @@
+---
+import { Image } from "astro:assets";
+import Comment from "../Comment.astro";
+export interface Props {
+  title: string;
+  subtitle: string;
+  points: number | string;
+  content: string[];
+  image: ImageMetadata;
+  alt: string;
+  backgroundColor: string;
+  sticker: ImageMetadata;
+  comment: Array<{
+    author: string;
+    backgroundColor: string;
+    borderColor: string;
+    arrowDirection: "left" | "right";
+  }>;
+}
+
+const {
+  title,
+  subtitle,
+  points,
+  content,
+  image,
+  alt,
+  backgroundColor,
+  sticker,
+  comment,
+} = Astro.props;
+---
+
+<section class="section">
+  <div class="section__category">
+    <p class="section__subtitle">{subtitle}</p>
+    <p class="section__points">/{points} pts</p>
+  </div>
+  <h2 class="section__title">{title}</h2>
+  <div class="section__comment">
+    {
+      comment.map((comment) => (
+        <Comment
+          author={comment.author}
+          backgroundColor={comment.backgroundColor}
+          borderColor={comment.borderColor}
+          arrowDirection={comment.arrowDirection}
+        />
+      ))
+    }
+  </div>
+  <div class="section__image">
+    <Image
+      src={image}
+      alt={alt}
+      widths={[240, 480, 720, 987]}
+      sizes={`(max-width: 480px) 240px, (max-width: 720px) 480px, (max-width: 987px) 720px, 987px`}
+    />
+  </div>
+  <div class="section__description">
+    {content.map((content) => <p set:html={content} />)}
+  </div>
+  <div class="section__sticker">
+    <Image src={sticker} alt={alt} />
+  </div>
+</section>
+
+<style define:vars={{ backgroundColor }}>
+  .section {
+    color: var(--COD-Black);
+    position: sticky;
+    overflow: hidden;
+    top: var(--height-header-desktop);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, auto);
+    column-gap: 8px;
+    margin-inline: 12px;
+    background-color: var(--backgroundColor);
+    border-radius: 60px;
+    width: 366px;
+    height: 600px;
+  }
+
+  .section__category {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2 / span 2;
+    grid-row: 1;
+    margin: 40px 0;
+  }
+
+  .section__title {
+    grid-column: 4 / -1;
+    grid-row: 1;
+    margin-top: 40px;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: left;
+  }
+
+  .section__comment {
+    grid-column: 7 / span 2;
+    width: min-content;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    z-index: 1;
+    position: relative;
+    top: -46px;
+    margin: 40px 0;
+    display: flex;
+    gap: 20px;
+  }
+
+  .section__image {
+    overflow: hidden;
+
+    grid-column: 2 / span 6;
+    grid-row: 2;
+    border-radius: 20px;
+
+    margin: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .section__description {
+    grid-column: 2 / span 6;
+    grid-row: 3 / auto;
+    margin-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    z-index: 1;
+  }
+
+  .section__subtitle,
+  .section__points,
+  .section__description {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  .section__title,
+  .section__subtitle {
+    text-transform: uppercase;
+  }
+
+  .section__sticker {
+    grid-column: 5 / span 4;
+    grid-row: 4 / span 1;
+    margin-left: calc(((100vw - 24px - (7 * 8px)) / 16) + 2px);
+    align-self: end;
+    position: relative;
+    bottom: -3px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+</style>

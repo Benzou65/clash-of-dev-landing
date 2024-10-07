@@ -42,7 +42,7 @@ export const sections: Props[] = [
     points: 6,
     content: [
       "Ses lignes de code sont des fondations solides. C’est <strong>un maître du front</strong>, capable de structurer les systèmes les plus complexes sans se casser la tête.",
-      "<strong>Maitre de VSCode</strong>G, il a surement fini le challenge en s’assurant d’avoir le code le plus clair et le plus propre des 36 participants.",
+      "<strong>Maitre de VSCode</strong>, il a surement fini le challenge en s’assurant d’avoir le code le plus clair et le plus propre des 36 participants.",
     ],
     image: section2Img,
     alt: "",
