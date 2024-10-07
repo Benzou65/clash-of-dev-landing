@@ -6,7 +6,7 @@ import Score from "./Score.astro";
 
 // Generate 10 random arrows
 const arrows = ["up", "down", "left", "right"] as const;
-const randomArrows = Array.from({ length: 10 }, (_, index) => ({
+const randomArrows = Array.from({ length: 11 }, (_, index) => ({
   direction: arrows[Math.floor(Math.random() * arrows.length)],
   class: `game__arrow-box game__arrow-box--${index + 1}`,
 }));
@@ -15,7 +15,7 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 <div class="game" data-arrows={randomArrows}>
   <div
     style={{
-      display: "flex",
+      display: "none",
       gap: "1rem",
       padding: "1rem",
       marginLeft: "120px",
@@ -167,7 +167,7 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
 
   // Check if game has ended
   const checkGameEnd = () => {
-    if (gameState.heroScore === 1) {
+    if (gameState.heroScore === 6) {
       const maxStreak = parseInt(localStorage.getItem("maxStreak") ?? "0");
       const currentStreak = parseInt(
         localStorage.getItem("currentStreak") ?? "0",
@@ -177,14 +177,14 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
         localStorage.setItem("maxStreak", (currentStreak + 1).toString());
       }
 
-      window.location.href = `/game/result?result=win`; //&streak=${currentStreak + 1}`;
+      window.location.href = `/game/result?result=win`;
     } else if (gameState.bossScore === 6) {
       localStorage.setItem("currentStreak", "0");
-      window.location.href = `/game/result?result=lose`; //&streak=0`;
+      window.location.href = `/game/result?result=lose`;
     }
   };
 
-  // Start game
+  // Start game function
   const startGame = () => {
     const arrowBoxes = document.querySelectorAll(".game__arrow-box");
     console.log("arrowBoxes", arrowBoxes);
@@ -206,6 +206,11 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
   document
     .querySelector(".game__button--reset")
     ?.addEventListener("click", resetGame);
+
+  // Auto-start game on page load
+  window.addEventListener("load", () => {
+    setTimeout(startGame, 1000); // Delay start by 1 second
+  });
 </script>
 
 <script>
@@ -225,6 +230,7 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
     flex-direction: column;
     overflow: hidden;
     width: 100%;
+    max-width: 1440px;
   }
 
   .game__arrow-container {
@@ -307,6 +313,13 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
     left: calc(
       var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
         9
+    );
+  }
+
+  .game__arrow-box--11 {
+    left: calc(
+      var(--game-arrow-offset) + var(--game-arrow-width) + var(--game-arrow-gap) *
+        10
     );
   }
 
