@@ -80,8 +80,21 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
   const handleKeyPress = (event: KeyboardEvent) => {
     event.preventDefault();
 
-    const validKeys = ["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"];
-    if (!validKeys.includes(event.key)) {
+    const keyMap: { [key: string]: string } = {
+      ArrowLeft: "ArrowLeft",
+      ArrowUp: "ArrowUp",
+      ArrowDown: "ArrowDown",
+      ArrowRight: "ArrowRight",
+      a: "ArrowLeft",
+      w: "ArrowUp",
+      s: "ArrowDown",
+      d: "ArrowRight",
+      q: "ArrowLeft",
+      z: "ArrowUp",
+    };
+
+    const pressedKey = keyMap[event.key] || keyMap[event.key.toLowerCase()];
+    if (!pressedKey) {
       playSound("click");
       return;
     }
@@ -94,7 +107,7 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
     );
     if (!currentArrowBox) return;
 
-    const isCorrectKey = event.key.toLowerCase() === currentArrow.toLowerCase();
+    const isCorrectKey = pressedKey === currentArrow;
     const distance = measureDistance(
       ".target-box",
       `.game__arrow-box--${gameState.step}`,
