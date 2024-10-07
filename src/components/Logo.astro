@@ -1,14 +1,16 @@
 ---
-
+interface Props {
+  step?: "pool" | "final";
+}
+const { step = "final" } = Astro.props;
 ---
 
 <div class="logo">
-  <span>LA PISCINE</span>
+  <span>{step === "pool" ? "LA PISCINE" : "LA FINALE"}</span>
 </div>
 
 <style>
   .logo {
-    /* --COD-COLOR-Purple-Light */
     color: var(--primary);
     background-color: var(--secondary);
     transform: rotate(8deg);
