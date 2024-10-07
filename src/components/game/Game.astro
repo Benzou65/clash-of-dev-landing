@@ -209,7 +209,7 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
 
   // Auto-start game on page load
   window.addEventListener("load", () => {
-    setTimeout(startGame, 1000); // Delay start by 1 second
+    startGame();
   });
 </script>
 
