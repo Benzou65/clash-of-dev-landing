@@ -24,6 +24,9 @@ import Boss from "../../images/game/boss1.png";
       Tu ne peux pas rester sur une défaite, tu te dois de te défendre contre ce
       système pyramidal de merde.<br />
       <br />
+      Ta meilleure série de victoire est de : <strong
+        class="result__content--max-streak"></strong><br />
+      <br />
       On rejoue ?
     </span>
     <span class="result__content--win">
@@ -31,7 +34,13 @@ import Boss from "../../images/game/boss1.png";
       <br />
       Bravo tu as remis ton lead un peu trop confiant à sa place ! <br />
       <br />
-      On rejoue ?
+      Ta série de victoire en cours est de : <strong
+        class="result__content--current-streak"></strong>
+      <br />
+      Ta meilleure série de victoire est de : <strong
+        class="result__content--max-streak"></strong><br />
+      <br />
+      La vitesse augmente de 10% à chaque victoire !<br /> On rejoue ?
     </span>
   </Fragment>
 
@@ -72,7 +81,20 @@ import Boss from "../../images/game/boss1.png";
 <script>
   const url = new URL(window.location.href);
   const result = url.searchParams.get("result");
-  // const streak = url.searchParams.get("streak");
+  const currentStreak = localStorage.getItem("currentStreak") ?? "1";
+  const maxStreak = localStorage.getItem("maxStreak") ?? "1";
+
+  const currentStreakElement = document.querySelector(
+    ".result__content--current-streak",
+  ) as HTMLElement;
+  const maxStreakElement = document.querySelectorAll(
+    ".result__content--max-streak",
+  ) as NodeListOf<HTMLElement>;
+
+  currentStreakElement.textContent = currentStreak;
+  maxStreakElement.forEach((element) => {
+    element.textContent = maxStreak;
+  });
 
   const title = document.querySelector(
     `.result__title--${result}`,
