@@ -208,9 +208,9 @@ const randomArrows = Array.from({ length: 10 }, (_, index) => ({
   }
 
   :root {
-    --game-arrow-gap: 200px;
+    --game-arrow-gap: calc(var(--game-arrow-width) + 40px);
     --game-arrow-width: 106px;
-    --game-arrow-offset: 200px;
+    --game-arrow-offset: 25%;
   }
   .game__arrow-box--1 {
     left: calc(var(--game-arrow-offset) + var(--game-arrow-width));
