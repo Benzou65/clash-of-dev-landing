@@ -54,9 +54,47 @@ const characters = [sections[2], sections[0], sections[1]];
       arrowDirection="right"
     />
 
-    <a href="#" class="game-layout__button">Select Champion</a>
+    <button class="game-layout__button" disabled>Select Champion</button>
   </div>
 </Layout>
+
+<script>
+  const button = document.querySelector(".game-layout__button");
+  button?.addEventListener("click", () => {
+    let countdown = 3;
+    const countdownInterval = setInterval(() => {
+      if (countdown > 0) {
+        button.textContent = countdown.toString();
+        countdown--;
+      } else {
+        clearInterval(countdownInterval);
+        window.location.href = "/game/play";
+      }
+    }, 1000);
+  });
+</script>
+
+<script>
+  const cards = document.querySelectorAll(".game-layout__card > *");
+
+  const button = document.querySelector(".game-layout__button");
+
+  if (cards && cards.length > 1 && button) {
+    const middleCard = cards[1];
+
+    middleCard.addEventListener("click", () => {
+      button.removeAttribute("disabled");
+      button.textContent = "Ready ?";
+
+      // Optionally, add a visual indicator that the card is selected
+      cards.forEach((card, index) => {
+        if (index === 1) {
+          card.classList.add("selected");
+        }
+      });
+    });
+  }
+</script>
 
 <style>
   .game-layout {
@@ -93,6 +131,10 @@ const characters = [sections[2], sections[0], sections[1]];
 
     > :nth-child(2) {
       &:hover {
+        transform: scale(1.03);
+      }
+      &.selected {
+        box-shadow: 0 0 0 6px #8a92e3;
         transform: scale(1.03);
       }
     }
