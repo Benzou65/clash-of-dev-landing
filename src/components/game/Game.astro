@@ -51,6 +51,7 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
   const hero = document.querySelector(".character--hero");
   const boss = document.querySelector(".character--boss");
   const scoreLight = document.querySelectorAll(".score__light");
+  const targetBox = document.querySelector(".target-box");
   const currentStreak = parseInt(localStorage.getItem("currentStreak") ?? "0");
 
   // Get the center position of target-box relative to the page
@@ -85,10 +86,6 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
   const targetPosition = getContainerCenter(".target-box");
   const bossPosition = getContainerCenter(".character--boss");
   const heroPosition = getContainerCenter(".character--hero");
-
-  console.log("targetPosition", targetPosition);
-  console.log("bossPosition", bossPosition);
-  console.log("heroPosition", heroPosition);
 
   // Call the function to set initial transition duration
   updateTransitionDuration();
@@ -191,6 +188,10 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
         emoji: ["dagger", "shield"],
         angle: 180,
       });
+      targetBox?.classList.add("target-box--failed");
+      setTimeout(() => {
+        targetBox?.classList.remove("target-box--failed");
+      }, 800);
     }
 
     gameState.step++;
@@ -216,13 +217,13 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
       }
       setTimeout(() => {
         window.location.href = `/game/result?result=win`;
-      }, 1000);
+      }, 500);
     } else if (gameState.bossScore === 6) {
       localStorage.setItem("currentStreak", "0");
 
       setTimeout(() => {
         window.location.href = `/game/result?result=lose`;
-      }, 1000);
+      }, 500);
     }
   };
 

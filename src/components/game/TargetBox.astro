@@ -2,8 +2,9 @@
 
 ---
 
-<div class="target-box">
+<div style={{ position: "relative", width: "106px", height: "106px" }}>
   <slot />
+  <div class="target-box"></div>
 </div>
 
 <style>
@@ -21,5 +22,17 @@
     border-radius: 10px;
 
     box-shadow: 0px -3px 4px 0px #88888840 inset;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .target-box--failed {
+    border-color: var(--COD-COLOR-Orange-Dark);
+    background-image: url("../../images/game/cross.svg");
+    background-size: 26px;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 </style>
