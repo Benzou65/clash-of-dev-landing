@@ -45,11 +45,28 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
 <script>
   import { loadAllSounds, playSound } from "../../utils/soundUtils";
   import { measureDistance } from "../../utils/measureDistance.ts";
+  import { getBubbleEffect } from "../../utils/getBubbleEffect";
 
   const hero = document.querySelector(".character--hero");
   const boss = document.querySelector(".character--boss");
   const scoreLight = document.querySelectorAll(".score__light");
   const currentStreak = parseInt(localStorage.getItem("currentStreak") ?? "0");
+
+  // Get the center position of target-box relative to the page
+  const getArrowContainerCenter = () => {
+    const arrowContainer = document.querySelector(".target-box");
+    if (arrowContainer) {
+      const rect = arrowContainer.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      return {
+        x: (rect.left + rect.width / 2) / viewportWidth,
+        y: (rect.top + rect.height / 2) / viewportHeight,
+      };
+    }
+    return null;
+  };
 
   // Update transition duration based on current streak
   const updateTransitionDuration = () => {
@@ -64,6 +81,7 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
       (box as HTMLElement).style.transitionDuration = `${newDuration}s`;
     });
   };
+  const targetPosition = getArrowContainerCenter();
 
   // Call the function to set initial transition duration
   updateTransitionDuration();
@@ -142,6 +160,9 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
       scoreLight[gameState.heroScore - 1]?.classList.add(
         "score__light--on-hero",
       );
+      getBubbleEffect({
+        origin: targetPosition!,
+      });
     } else {
       currentArrowBox.classList.add("arrow-box--failed");
       hero?.classList.add("character--hurt");
