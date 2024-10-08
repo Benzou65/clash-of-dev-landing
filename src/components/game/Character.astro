@@ -7,8 +7,9 @@ import Hero2 from "../../images/game/hero2.png";
 
 interface Props {
   type: "hero" | "boss";
+  class: string;
 }
-const { type } = Astro.props;
+const { type, class: className, ...rest } = Astro.props;
 
 const getCharaterImg = (type: "hero" | "boss") => {
   if (type === "boss") {
@@ -25,7 +26,7 @@ const getCharaterImg = (type: "hero" | "boss") => {
 };
 ---
 
-<div class=`character character--${type}`>
+<div class=`character character--${type} ${className}` {...rest}>
   <Image
     src={getCharaterImg(type).normal}
     alt="Character"

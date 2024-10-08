@@ -9,7 +9,6 @@ export function measureDistance(target1: string, target2: string) {
 
     const distance = lastArrowBoxRect.left - targetBoxRect.left;
 
-    console.log("distance", distance);
     return distance;
   } else {
     console.error("Could not find TargetBox or last ArrowBox");

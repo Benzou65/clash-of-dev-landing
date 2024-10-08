@@ -28,8 +28,8 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
   </div>
   <Score class="game__score" />
   <div class="game__battleground">
-    <Character type="hero" />
-    <Character type="boss" />
+    <Character type="hero" class="character--hero" />
+    <Character type="boss" class="character--boss" />
   </div>
   <div class="game__arrow-container">
     <TargetBox>
@@ -46,6 +46,7 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
   import { loadAllSounds, playSound } from "../../utils/soundUtils";
   import { measureDistance } from "../../utils/measureDistance.ts";
   import { getBubbleEffect } from "../../utils/getBubbleEffect";
+  import { getWeaponEffect } from "../../utils/getWeaponEffect";
 
   const hero = document.querySelector(".character--hero");
   const boss = document.querySelector(".character--boss");
@@ -53,8 +54,8 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
   const currentStreak = parseInt(localStorage.getItem("currentStreak") ?? "0");
 
   // Get the center position of target-box relative to the page
-  const getArrowContainerCenter = () => {
-    const arrowContainer = document.querySelector(".target-box");
+  const getContainerCenter = (target: string) => {
+    const arrowContainer = document.querySelector(target);
     if (arrowContainer) {
       const rect = arrowContainer.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
@@ -81,7 +82,13 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
       (box as HTMLElement).style.transitionDuration = `${newDuration}s`;
     });
   };
-  const targetPosition = getArrowContainerCenter();
+  const targetPosition = getContainerCenter(".target-box");
+  const bossPosition = getContainerCenter(".character--boss");
+  const heroPosition = getContainerCenter(".character--hero");
+
+  console.log("targetPosition", targetPosition);
+  console.log("bossPosition", bossPosition);
+  console.log("heroPosition", heroPosition);
 
   // Call the function to set initial transition duration
   updateTransitionDuration();
@@ -163,6 +170,11 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
       getBubbleEffect({
         origin: targetPosition!,
       });
+      getWeaponEffect({
+        origin: heroPosition!,
+        emoji: ["brush", "palette"],
+        angle: 0,
+      });
     } else {
       currentArrowBox.classList.add("arrow-box--failed");
       hero?.classList.add("character--hurt");
@@ -174,6 +186,11 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
       Array.from(scoreLight)
         .reverse()
         [gameState.bossScore - 1]?.classList.add("score__light--on-boss");
+      getWeaponEffect({
+        origin: bossPosition!,
+        emoji: ["dagger", "shield"],
+        angle: 180,
+      });
     }
 
     gameState.step++;
@@ -197,18 +214,21 @@ const randomArrows = Array.from({ length: 11 }, (_, index) => ({
       if (currentStreak > maxStreak) {
         localStorage.setItem("maxStreak", (currentStreak + 1).toString());
       }
-
-      window.location.href = `/game/result?result=win`;
+      setTimeout(() => {
+        window.location.href = `/game/result?result=win`;
+      }, 1000);
     } else if (gameState.bossScore === 6) {
       localStorage.setItem("currentStreak", "0");
-      window.location.href = `/game/result?result=lose`;
+
+      setTimeout(() => {
+        window.location.href = `/game/result?result=lose`;
+      }, 1000);
     }
   };
 
   // Start game function
   const startGame = () => {
     const arrowBoxes = document.querySelectorAll(".game__arrow-box");
-    console.log("arrowBoxes", arrowBoxes);
     arrowBoxes.forEach((arrowBox) => {
       arrowBox.classList.add("game__arrow-box--active");
     });
