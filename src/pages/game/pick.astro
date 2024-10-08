@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Shield from "../../images/logos/Shield.svg";
 import Lightning from "../../images/logos/Lightning.svg";
-import ClashOfDevHero from "../../images/logos/ClashOfDevHero.svg";
+import Star from "../../images/logos/Star.svg";
 import { Image } from "astro:assets";
 import Comment from "../../components/Comment.astro";
 import CharacterSection from "../../components/game/CharacterSection.astro";
@@ -21,6 +21,7 @@ const characters = [sections[2], sections[0], sections[1]];
     <div class="game-layout__lightning">
       <Image src={Lightning} alt="Lightning" />
     </div>
+
     <Image
       src={Shield}
       alt="Shield"
@@ -53,6 +54,9 @@ const characters = [sections[2], sections[0], sections[1]];
       borderColor="#D46F55"
       arrowDirection="right"
     />
+    <div class="game-layout__star">
+      <Image src={Star} alt="Star" />
+    </div>
 
     <button class="game-layout__button" disabled>Select Champion</button>
   </div>
@@ -215,5 +219,11 @@ const characters = [sections[2], sections[0], sections[1]];
     bottom: 70px;
     rotate: -10.41deg;
     height: min-content;
+  }
+
+  .game-layout__star {
+    position: absolute;
+    left: 195px;
+    bottom: 100px;
   }
 </style>
