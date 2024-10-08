@@ -80,8 +80,13 @@ import Comment from "../components/Comment.astro";
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     background: radial-gradient(50% 50% at 50% 50%, #5a5a59 0%, #262625 100%);
+  }
+
+  html[data-theme="light"] .game-layout {
+    background: radial-gradient(50% 50% at 50% 50%, #f2f2f2 0%, #e6e6e6 100%);
   }
   .game-layout__header {
     font-family: Inter;
