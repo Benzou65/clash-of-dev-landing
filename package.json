@@ -11,15 +11,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
+    "@astrojs/check": "^0.9.6",
     "astro": "^4.15.8",
     "astro-google-fonts-optimizer": "^0.2.2",
-    "canvas-confetti": "^1.9.3",
+    "canvas-confetti": "^1.9.4",
     "modern-normalize": "^3.0.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.6.4",
+    "@types/canvas-confetti": "^1.9.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1"
   }
